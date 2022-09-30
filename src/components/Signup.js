@@ -19,19 +19,27 @@ const handleSignup = async(e)=>{
     e.preventDefault();
 
   createUserWithEmailAndPassword (auth, email, password)
-  .then(()=>{
-      setSuccessMsg("login success");
+//   .then((credentails)=>{
+//     db.collection('user').doc(credentails.user.uid).set({
+// FullName:fullName,
+// Email:email,
+// Password:password
+    // })
+    .then(()=>{
+      setSuccessMsg("Signup success");
       setFullName("")
       setEmail("");
         setPassword("");
         setErrorMsg("");
         setTimeout(() => {
           setSuccessMsg("");
-          navigate("/");
+          navigate("/login");
         }, 3000); 
-    })
-  .catch((error)=>{
-    setErrorMsg(error.msg)})
+       }).catch((error)=>{
+        setErrorMsg(error.msg)});
+  // })
+//   .catch((error)=>{
+//     setErrorMsg(error.msg)})
 }
   return (
     <div>
@@ -47,7 +55,7 @@ const handleSignup = async(e)=>{
 </>}
 
 {/* <br></br> */}
-    <form className='form-group' >
+    <form className='form-group' onSubmit={handleSignup} >
     <div className="mb-3 my-2"/>
     <div className="mb-3">
     <label htmlFor="name" className="form-label">Full Name</label>
@@ -65,7 +73,7 @@ const handleSignup = async(e)=>{
   <div className="btn-box">
     <span>Already have an account Login <Link to ="/login" className='link'>Here</Link> </span>
   </div>
-  <button type="submit"onClick={handleSignup} className="btn btn-success my-3">SIGN UP</button>
+  <button type="submit" className="btn btn-success my-3">SIGN UP</button>
   
 </form>
 </div>

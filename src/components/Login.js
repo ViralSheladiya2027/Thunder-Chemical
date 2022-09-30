@@ -2,7 +2,7 @@ import { signInWithCredential } from 'firebase/auth';
 import React ,{useState} from 'react';
 import { Link } from "react-router-dom";
 import { useNavigate} from 'react-router-dom';
-import { auth ,db} from "../firebase"
+import { auth } from "../firebase"
 
 const Login = () => {
 
@@ -46,7 +46,7 @@ const handleLogin = async(e)=>{
 </>}
 
 {/* <br></br> */}
-    <form className='form-group' >
+    <form className='form-group'onSubmit={handleLogin} >
     <div className="mb-3 my-2"/>
   <div className="mb-3">
     <label htmlFor="email" className="form-label">Email address</label>
@@ -60,7 +60,7 @@ const handleLogin = async(e)=>{
   <div className="btn-box">
     <span>Already have an account Login <Link to ="/" className='link'>Here</Link> </span>
   </div>
-  <button type="submit"onClick={handleLogin} className="btn btn-success my-3">LOGIN</button>
+  <button type="submit" className="btn btn-success my-3">LOGIN</button>
   
 </form>
 </div>
