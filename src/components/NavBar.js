@@ -1,74 +1,96 @@
-
-import React from 'react';
-import { Link } from "react-router-dom";
-import {auth } from '../firebase';
-import { useNavigate} from 'react-router-dom';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { BsCart2} from 'react-icons/bs';
-import { useCart } from 'react-use-cart';
+import React from 'react'
+import {AppBar, Box, FormControl, Switch,FormControlLabel ,FormGroup ,MenuItem , Menu ,IconButton, InputBase, TextField, Toolbar} from "@mui/material"
+import logo from "../logo/logo.png"
+import {AccountCircle} from '@mui/icons-material';
+import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 
 
-const NavBar= ({user}) =>{
-  const navigate = useNavigate();
 
-  const handleLogOut=()=>{
-auth.signOut().then(()=>{
-navigate.push("./login");
-})
-  }
+const NavBar = () => {
 
-  const {
-    isEmpty,
-    totalItems,
-} = useCart ();
+    const [auth, setAuth] = React.useState(true);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+  
+    const handleChange = (event) => {
+      setAuth(event.target.checked);
+    };
+  
+    const handleMenu = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
 
   return (
-    <>
-   
-     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-     <div className="leftside">
-  <div className="container-fluid"/>
-    <Link className="navbar-brand" to="/">Thunder Chemical</Link>
-    </div>
-    
-        <div className="rightside ">
-          {!user&&<>
-            <button type="button" className="btn btn-outline-light mx-1">
-          <Link className="nav-link" to="/signup">SIGN UP</Link>
-          </button>
-        <button type="button" className="btn btn-outline-light mx-1">
-          <Link className="nav-link" to="/login">LOGIN</Link>
-          </button>
-         
-          </>}
-        {user&&<>
-        <div>  <Link className="nav-link" to="/">{user}</Link> </div>
-       <div>
-       <Link className="nav-link" to="/cart">
-        <ShoppingCartOutlinedIcon style={{color:'white'}}/>
-       </Link>
-        </div> 
-          <button type="button" className="btn btn-outline-danger mx-1" onClick={handleLogOut}>
-          LOGOUT
-          </button>
-        </>}
-
-        <Link
-                to="/cart"
+    <Box sx={{ display: 'flex' }}>
+         <FormGroup>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={auth}
+              onChange={handleChange}
+              aria-label="login switch"
+            />
+          }
+          label={auth ? 'Logout' : 'Login'}
+        />
+      </FormGroup>
+<AppBar position='fixed'style={{ background: '#263238' }}>
+    <Toolbar>
+        <img src={logo} height= "40px"style={{marginRight:"15px"}} />
+<div>
+<SearchIcon /> 
+            <InputBase
+        sx={{ ml: 1, flex: 1,color:'white' }}
+        placeholder="Search..."
+        aria-label='search ' 
+      />
+</div>
+       
+      
+      <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
               >
-        <BsCart2 style={{color:'white'}} size='2rem'/>
-        
-        {!isEmpty && <span style={{ position: 'relative', left: '-21px', top: '-18px',color:'white'}}>{totalItems}</span>}
-        <span style={{ marginLeft: !isEmpty ? '-13px': 0,color:'white'}}> {""}Cart</span>
-        </Link>
-  </div>
-</nav>
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}> <Link className="nav-link" to="/signup" >
+       Sign Up
+      </Link></MenuItem>
+                <MenuItem onClick={handleClose}><Link className="nav-link" to="/login" >
+       Login
+      </Link></MenuItem>
+              </Menu>
+            </div>
 
-</>
-  );
+            
+    </Toolbar>
+</AppBar>
+        </Box>
+  )
 }
 
-
-
-export default NavBar; 
-
+export default NavBar

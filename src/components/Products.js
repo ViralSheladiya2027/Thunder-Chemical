@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card} from 'react-bootstrap';
+import { Card} from 'react-bootstrap';
 
 import { useCart } from 'react-use-cart';
 import { BsCartPlus } from 'react-icons/bs';
@@ -11,6 +11,7 @@ const Products = (props) => {
 
     const addToCart = () =>{
         addItem(props.data);
+      
        
     }
     return (
@@ -33,9 +34,10 @@ const Products = (props) => {
                 </Card.Title>
                 <span
                     onClick={()=> addToCart()}
-                    className= 'd-flex align-item-center m-auto border-0'
+                    type="submit"
+                    className= 'd-flex align-item-center m-auto border-0 '
                 >
-                    <BsCartPlus size="1.8rem" />
+                    <BsCartPlus size="1.8rem"  />
                     {/* Add to cart */}
                 </span>
             </Card.Body>
