@@ -82,7 +82,7 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import { signInWithEmailAndPassword,createUserWithEmailAndPassword} from "firebase/auth";
 import { auth, db } from './Firebase';
-import { useNavigate} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import { collection, addDoc } from "firebase/firestore";
 
@@ -205,9 +205,10 @@ email:email
         
         />
         <br></br>
+        <Typography>Dont have an account to signup <Link to ="/signup" className='link'>Here</Link> </Typography>
         {/* <br></br> */}
          {/* <CircularProgress size={30} paddingtop="10px"/> */}
-         <br/>
+         {/* <br/> */}
          <br/>
          <Button variant="contained" fullWidth color="primary" onClick={handleLogin}  >
   login
