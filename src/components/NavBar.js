@@ -1,5 +1,5 @@
 import React from "react";
-import Container from '@mui/material/Container';
+import Container from "@mui/material/Container";
 import {
   AppBar,
   Box,
@@ -53,19 +53,19 @@ const NavBar = () => {
           label={auth ? "Logout" : "Login"}
         />
       </FormGroup>
-      <Box sx={{flexgrow:"1"}}>
-      <AppBar position="fixed" style={{ background: "#263238" }}>
-        <Toolbar>
-          <img src={logo} height="40px" style={{ marginRight: "15px" }} />
+      <Box sx={{ flexgrow: "1", height: "18px" }}>
+        <AppBar position="fixed" style={{ background: "#263238" }}>
+          <Toolbar>
+            <Link className="nav-link" to="/">
+              <img src={logo} height="40px" style={{ marginRight: "15px" }} />
+            </Link>
+            <SearchIcon />
+            <InputBase
+              sx={{ color: "white" }}
+              placeholder="Search..."
+              aria-label="search "
+            />
 
-          <SearchIcon  />
-          <InputBase
-            sx={{ color: "white" }}
-            placeholder="Search..."
-            aria-label="search "
-          />
-
-         
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -73,7 +73,7 @@ const NavBar = () => {
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
-              sx={{marginLeft:"auto"}}
+              sx={{ marginLeft: "auto" }}
             >
               <AccountCircle />
             </IconButton>
@@ -104,18 +104,16 @@ const NavBar = () => {
                 </Link>
               </MenuItem>
             </Menu>
-          
 
-          
             <Link className="nav-link" to="/cart">
               <Badge badgeContent={totalItems} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
             </Link>
-          
-        </Toolbar>
-      </AppBar></Box>
-     </div>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </div>
   );
 };
 
