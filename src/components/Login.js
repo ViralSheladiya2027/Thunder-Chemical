@@ -36,17 +36,6 @@ const Login = () => {
     e.preventDefault();
     console.log(email, password);
 
-    // try {
-    //   await createUserWithEmailAndPassword(auth , email, password);
-    // }
-    // catch (err) {
-    //   console.error(err);
-    //   setErrorMsg(err.message)
-    //  setTimeout(() => {
-    //   setErrorMsg("");
-    // }, 3000);
-    // }
-
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setSuccessMsg("login success");
@@ -62,14 +51,6 @@ const Login = () => {
       setTimeout(() => {
         setErrorMsg("");
       }, 3000);
-    }
-
-    try {
-      await addDoc(collection(db, "user"), {
-        email: email,
-      });
-    } catch (err) {
-      setErrorMsg(err.message);
     }
   };
 
@@ -103,8 +84,9 @@ const Login = () => {
           }}
         >
           <img src={logo} height="50px" />
-          <br />
-          {/* <Typography color = "textSecondary" variant="h5">Admin</Typography> */}
+          <Typography align="left" variant="h5">
+            Login
+          </Typography>
           <TextField
             label="Email"
             id="outlined-size-small"

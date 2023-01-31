@@ -115,9 +115,9 @@ const Signup = () => {
             p: "24px",
           }}
         >
+         
           <img src={logo} height="50px" />
-          <br />
-          {/* <Typography color = "textSecondary" variant="h5">Admin</Typography> */}
+          <Typography align="left" variant="h5" >Sign Up</Typography>
           <TextField
             label="Full Name"
             id="outlined-size-small"
@@ -183,6 +183,7 @@ const Signup = () => {
             label="Address"
             id="outlined-size-small"
             size="small"
+            multiline          
             fullWidth
             margin="normal"
             padding="normal"
@@ -193,14 +194,11 @@ const Signup = () => {
 
           <br></br>
           <Typography>
-            Already have an account Login{" "}
+            Already have an account Login
             <Link to="/login" className="link">
               Here
-            </Link>{" "}
+            </Link>
           </Typography>
-          {/* <br></br> */}
-          {/* <CircularProgress size={30} paddingtop="10px"/> */}
-          {/* <br/> */}
           <br />
           <Button
             variant="contained"
