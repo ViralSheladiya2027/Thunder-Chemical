@@ -1,10 +1,14 @@
 import React from 'react';
 import { Button, Container, Col, Row, Table} from 'react-bootstrap';
 import { useCart } from 'react-use-cart';
-
+import { db,storage } from "./Firebase";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BsCartCheck, BsCartX} from 'react-icons/bs';
+import Swal from "sweetalert2"
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { useState } from "react";
 
-const Cart = () => {
+const Cart = ({ closeEvent }) => {
     
     const {
         isEmpty,
@@ -14,9 +18,51 @@ const Cart = () => {
         removeItem,
         emptyCart,
     } = useCart();
+
+    const [image, setImage] = useState(null);
+
+    const empCollectionRef = collection(db, "orders");
+    const userOrder = async (e) => {
+        e.preventDefault();
+        if (image === null) return;
+        const storageRef = ref(storage, `images/${image.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, image);
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+          },
+          (error) => {
+            alert(error);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              addDoc(empCollectionRef,
+            //      {
+            //     image: downloadURL,
+            //     name: name,
+            //     price: Number(price),
+            //     unit: unit,
+            //   }
+              );
+              console.log("URL::" + downloadURL);
+            });
+          }
+        );
+    
+        getUsers();
+        closeEvent();
+        Swal.fire("submitted", "your file has been submitted", "success");
+      };
+      const getUsers = async () => {
+        const data = await getDocs(empCollectionRef);
+        // setRows(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      };
     return (
         <Container className="py-4 mt-5">
-            <h1 className=' my-5 text-center'>
+            <h1 className=' my-3 text-center'>
                 {isEmpty? 'Your Cart is Empty' : 'The Cart'}
             </h1>
             <Row className="justify-content-center">
@@ -67,10 +113,11 @@ const Cart = () => {
                                 Clear Cart
                             </Button>
                             <Button variant="success"
-                                className="m-2"
+                                className="m-3"
+                                onClick={userOrder}
                             >
                                 <BsCartCheck size="1.7rem" />
-                                Clear Cart
+                                Submit
                             </Button>
                         </Col>
                     </Row>}

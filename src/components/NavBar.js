@@ -36,7 +36,9 @@ const NavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const logOutClick =()=>{
+    auth.signOut();
+  }
   const { isEmpty, totalItems } = useCart();
 
   return (
@@ -92,7 +94,8 @@ const NavBar = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>
+            
+             <MenuItem onClick={handleClose}>
                 {" "}
                 <Link className="nav-link" to="/signup">
                   Sign Up
@@ -102,6 +105,9 @@ const NavBar = () => {
                 <Link className="nav-link" to="/login">
                   Login
                 </Link>
+              </MenuItem>
+              <MenuItem  onClick={logOutClick} primary="Logout">
+                 Logout            
               </MenuItem>
             </Menu>
 

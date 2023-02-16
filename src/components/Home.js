@@ -5,6 +5,7 @@ import { Container, Row, Col, InputGroup, FormControl } from 'react-bootstrap';
 import { BiSearch } from 'react-icons/bi';
 import SearchFilter from 'react-filter-search';
 import Products from '../components/Products';
+import { Box } from '@mui/material';
 
 const Home = () => {
    
@@ -38,6 +39,8 @@ const Home = () => {
         //                 />
         //             </InputGroup>
         //         </Col>
+        <div >
+            <Box height={30}/>
                 <SearchFilter 
                     value={searchInput}
                     data={productData}
@@ -49,7 +52,7 @@ const Home = () => {
                         </Row>
                     )}
                 />
-                
+                </div>
             // </Row>
         // </Container>
         
