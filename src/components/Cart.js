@@ -28,12 +28,14 @@ const Cart = ({ closeEvent }) => {
   const {
     isEmpty,
     items,
+    row,
     cartTotal,
     updateItemQuantity,
     removeItem,
     emptyCart,
   } = useCart();
 
+  const [data, setData] = useState([])
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");

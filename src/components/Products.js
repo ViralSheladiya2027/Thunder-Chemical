@@ -2,48 +2,11 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import { useCart } from "react-use-cart";
 import { BsCartPlus } from "react-icons/bs";
-import { db, storage } from "./Firebase";
-import { collection, getDocs, addDoc } from "firebase/firestore";
 
 const Products = (props) => {
   let { name, image, price, unit } = props.data;
 
   const { addItem } = useCart();
-  const empCollectionRef = collection(db, "products");
-
-  useEffect(() => {
-    getUsers();
-  }, []);
-
-  
-    const storageRef = ref(storage, `images/${image.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, image);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-      },
-      (error) => {
-        alert(error);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          addDoc(empCollectionRef, {
-            image: downloadURL,
-            name: name,
-            price: Number(price),
-            unit: unit,
-          });
-          console.log("URL::" + downloadURL);
-        });
-      }
-    );
-    const getUsers = async () => {
-    const data = await getDocs(empCollectionRef);
-   
-  };
 
   const addToCart = () => {
     addItem(props.data);

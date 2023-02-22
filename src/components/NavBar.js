@@ -61,12 +61,12 @@ const NavBar = () => {
             <Link className="nav-link" to="/">
               <img src={logo} height="40px" style={{ marginRight: "15px" }} />
             </Link>
-            <SearchIcon />
+            {/* <SearchIcon />
             <InputBase
               sx={{ color: "white" }}
               placeholder="Search..."
               aria-label="search "
-            />
+            /> */}
 
             <IconButton
               size="large"
