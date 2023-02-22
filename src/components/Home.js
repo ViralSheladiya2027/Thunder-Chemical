@@ -16,10 +16,10 @@ const Home = (props) => {
 
 
     const [data, setData] = useState([])
-   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [unit, setUnit] = useState("");
-  const [image, setImage] = useState("");
+  //  const [name, setName] = useState("");
+  // const [price, setPrice] = useState("");
+  // const [unit, setUnit] = useState("");
+  // const [image, setImage] = useState("");
   const empCollectionRef = collection(db, "products");
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const Home = (props) => {
   }, []);
 
   
-    const storageRef = ref(storage, `images/${image.name}`);
+    // const storageRef = ref(storage, `images/${image.name}`);
     // const uploadTask = uploadBytesResumable(storageRef, image);
     // uploadTask.on(
     //   "state_changed",
@@ -39,17 +39,17 @@ const Home = (props) => {
     //   (error) => {
     //     alert(error);
     //   },
-      () => {
-        getDownloadURL(storageRef.snapshot.ref).then((downloadURL) => {
-          addDoc(empCollectionRef, {
-            image: downloadURL,
-            name: name,
-            price: Number(price),
-            unit: unit,
-          });
-          console.log("URL::" + downloadURL);
-        });
-      }
+      // () => {
+      //   getDownloadURL(storageRef.snapshot.ref).then((downloadURL) => {
+      //     addDoc(empCollectionRef, {
+      //       image: downloadURL,
+      //       name: name,
+      //       price: Number(price),
+      //       unit: unit,
+      //     });
+      //     console.log("URL::" + downloadURL);
+      //   });
+      // }
     // );
     const getUsers = async () => {
     const data = await getDocs(empCollectionRef);
