@@ -127,50 +127,7 @@ const Cart = ({ closeEvent }) => {
     //                             //         <Button variant="danger" onClick={()=> removeItem(item.id)} className="ms-2">Remove Item</Button>
     //                             //     </td>
     //                             // </tr>
-    //                             <Card
-    //                             style={{ width: "18rem", height: "auto" }}
-    //                             className=" text-center p-0 overflow-hidden shadow mx-auto mb-4"
-    //                           >
-    //                             <div
-    //                               style={{
-    //                                 background: "white",
-    //                                 height: "15rem",
-    //                                 overflow: "hidden",
-    //                                 display: "flex",
-    //                                 justifyContent: "center",
-    //                                 alignItems: "center",
-    //                                 marginBottom: "inherit",
-    //                               }}
-    //                             >
-    //                               <div style={{ width: "9rem" }}>
-    //                                 <Card.Img variant="top" src={item.image} className="img-fluid" />
-    //                               </div>
-    //                             </div>
-    //                             <Card.Body>
-    //                               <Card.Title
-    //                                 style={{
-    //                                   textOverflow: "ellipsis",
-    //                                   overflow: "hidden",
-    //                                   whiteSpace: "nowrap",
-    //                                 }}
-    //                               >
-    //                                 {item.name}
-    //                               </Card.Title>
-    //                               <Card.Title>
-    //                                 Rs. <span className="h3">{item.price}</span>
-    //                               </Card.Title>
-    //                               <Card.Title>
-    //                                 <span className="h3">{item.unit}</span>
-    //                               </Card.Title>
-    //                               {/* <span
-    //                                 onClick={() => addToCart()}
-    //                                 type="submit"
-    //                                 className="d-flex align-item-center m-auto border-0 "
-    //                               >
-    //                                 <BsCartPlus size="1.8rem" />
-    //                               </span> */}
-    //                             </Card.Body>
-    //                           </Card>
+    //                            
     //                         )
     //                     })}
     //                      {!isEmpty &&
@@ -204,36 +161,64 @@ const Cart = ({ closeEvent }) => {
     //         </Row>
     
     // </>
-    <Card sx={{ display: 'flex' }}>
+
+    <>
+    <Box height={30}/>
+      {items.map((item,index)=>{
+      return(
+        
+    <Card sx={{ display: 'flex',width: "20rem", height: "auto" }}
+    key={index}
+    className=" text-center p-0 overflow-hidden shadow mx-auto mb-4">
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    <Stack direction="row" spacing={2}>
       <CardContent sx={{ flex: '1 0 auto' }}>
         <Typography component="div" variant="h5">
-          Live From Space
+          {item.name}
         </Typography>
         <Typography variant="subtitle1" color="text.secondary" component="div">
-          Mac Miller
+         Rs. {item.price}
+        </Typography>
+         <Typography variant="subtitle1" color="text.secondary" component="div">
+         {item.unit}
+        </Typography>
+        <Typography variant="subtitle1" color="text.secondary" component="div">
+         {item.description}
         </Typography>
       </CardContent>
-      <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-        {/* <IconButton aria-label="previous">
-          {direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
-        </IconButton> */}
-        <IconButton aria-label="play/pause">
-          <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-        </IconButton>
-        {/* <IconButton aria-label="next">
-          {direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-        </IconButton> */}
-      </Box>
-    </Box>
-    <CardMedia
+      <CardMedia
       component="img"
-      sx={{ width: 151 }}
-      image="/static/images/cards/live-from-space.jpg"
-      alt="Live from space album cover"
+      style={{ width: '7rem'}}
+     src={item.image} 
+     alt={item.title}
     />
+     </Stack>
+    
+      <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+        <Button variant="outlined">
+        
+          <RemoveIcon onClick={()=> updateItemQuantity(item.id, item.quantity - 1)} /> 
+        </Button>
+        <Button variant="outlined">
+           {item.quantity}
+        </Button>
+        <Button variant="outlined">
+          <AddIcon onClick={()=> updateItemQuantity(item.id, item.quantity + 1)} />
+          
+        </Button>
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+      <Button variant="outlined"  >
+      <DeleteIcon onClick={()=> removeItem(item.id)}/>
+     Delete </Button>
+     </Box>
+   
+     </Box>
+   
   </Card>
-
+   ) })}
+    </>
+   
   );
 };
 

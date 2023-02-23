@@ -4,7 +4,7 @@ import { useCart } from "react-use-cart";
 import { BsCartPlus } from "react-icons/bs";
 
 const Products = (props) => {
-  let { name, image, price, unit } = props.data;
+  let { name, image, price, unit ,description} = props.data;
 
   const { addItem } = useCart();
 
@@ -46,6 +46,9 @@ const Products = (props) => {
         </Card.Title>
         <Card.Title>
           <span className="h3">{unit}</span>
+        </Card.Title>
+         <Card.Title>
+          <span className="h3">{description}</span>
         </Card.Title>
         <span
           onClick={() => addToCart()}
