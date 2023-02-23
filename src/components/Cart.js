@@ -9,10 +9,13 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useState, useEffect } from "react";
 // import { Card } from "react-bootstrap";
 import {
+  Alert,
   Autocomplete,
   Box,
   Divider,
   Paper,
+  Snackbar,
+  SnackbarContent,
   Stack,
   TableBody,
   TableCell,
@@ -24,26 +27,25 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useStore } from "../Store";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import IconButton from "@mui/material/IconButton";
+import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
 
 const Cart = ({ closeEvent }) => {
   const {
     isEmpty,
     items,
-    row,
     cartTotal,
     updateItemQuantity,
     removeItem,
     emptyCart,
   } = useCart();
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -57,7 +59,7 @@ const Cart = ({ closeEvent }) => {
   useEffect(() => {
     getUsers();
   }, []);
- 
+
   // const userOrder = async (e) => {
   //   e.preventDefault();
   //   if (image === null) return;
@@ -94,44 +96,10 @@ const Cart = ({ closeEvent }) => {
     const data = await getDocs(empCollectionRef);
     setRows(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
- 
+
   return (
-    // <>
-    //  <h1 className=" my-4 text-center">
-    //     {isEmpty ? "Your Cart is Empty" : "The Cart"}
-    //   </h1>
-    //   <Row className="justify-content-center">
-    //             <Table responsive="sm" striped bordered hover  className="mb-5">
-    //                 <tbody>
-    //                     {items.map((item, index)=>{
-    //                         return(
-    //                             // <tr key={index}>
-    //                             //     <td>
-    //                             //         <div style={{ background: 'white', height: '8rem', overflow: 'hidden', display: 'flex',
-    //                             //         justifyContent: 'center', alignItems: 'center' }}>
-    //                             //             <div style={{ padding: '.5rem'}}>
-    //                             //                 <img src={item.image} style={{ width: '4rem'}} alt={item.title} />
-    //                             //             </div>
-    //                             //         </div>
-    //                             //     </td>
-    //                             //     <td>
-    //                             //         <h6 style={{ whiteSpace: 'nowrap', width: '14rem', overflow: 'hidden', textOverFlow: 'ellipsis'}}>
-    //                             //             {item.name}
-    //                             //         </h6>
-    //                             //     </td>
-    //                             //     <td>Rs. {item.price}</td>
-    //                             //     <td>Quantity ({item.quantity})</td>
-    //                             //     <td>
-    //                             //         <Button onClick={()=> updateItemQuantity(item.id, item.quantity - 1)} className="ms-2">-</Button>
-    //                             //         <Button onClick={()=> updateItemQuantity(item.id, item.quantity + 1)} className="ms-2">+</Button>
-    //                             //         <Button variant="danger" onClick={()=> removeItem(item.id)} className="ms-2">Remove Item</Button>
-    //                             //     </td>
-    //                             // </tr>
-    //                            
-    //                         )
-    //                     })}
     //                      {!isEmpty &&
-    //                 <Row 
+    //                 <Row
     //                     style={{ position: 'fixed', bottom: 0}}
     //                     className=' justify-content-center w-100'
     //                 >
@@ -153,72 +121,97 @@ const Cart = ({ closeEvent }) => {
     //                             <BsCartCheck size="1.7rem" />
     //                             Submit
     //                         </Button>
-    //                     </Col>
-    //                 </Row>}
-    //                 </tbody>
-    //             </Table>
-                
-    //         </Row>
-    
-    // </>
+    //
 
     <>
-    <Box height={30}/>
-      {items.map((item,index)=>{
-      return(
-        
-    <Card sx={{ display: 'flex',width: "20rem", height: "auto" }}
-    key={index}
-    className=" text-center p-0 overflow-hidden shadow mx-auto mb-4">
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-    <Stack direction="row" spacing={2}>
-      <CardContent sx={{ flex: '1 0 auto' }}>
-        <Typography component="div" variant="h5">
-          {item.name}
-        </Typography>
-        <Typography variant="subtitle1" color="text.secondary" component="div">
-         Rs. {item.price}
-        </Typography>
-         <Typography variant="subtitle1" color="text.secondary" component="div">
-         {item.unit}
-        </Typography>
-        <Typography variant="subtitle1" color="text.secondary" component="div">
-         {item.description}
-        </Typography>
-      </CardContent>
-      <CardMedia
-      component="img"
-      style={{ width: '7rem'}}
-     src={item.image} 
-     alt={item.title}
-    />
-     </Stack>
-    
-      <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-        <Button variant="outlined">
-        
-          <RemoveIcon onClick={()=> updateItemQuantity(item.id, item.quantity - 1)} /> 
-        </Button>
-        <Button variant="outlined">
-           {item.quantity}
-        </Button>
-        <Button variant="outlined">
-          <AddIcon onClick={()=> updateItemQuantity(item.id, item.quantity + 1)} />
-          
-        </Button>
-      </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-      <Button variant="outlined"  >
-      <DeleteIcon onClick={()=> removeItem(item.id)}/>
-     Delete </Button>
-     </Box>
-   
-     </Box>
-   
-  </Card>
-   ) })}
+      <h1 className=" my-4 text-center">
+        {isEmpty ? "Your Cart is Empty" : "The Cart"}
+      </h1>
+      {!isEmpty && (
+        <Stack spacing={1} direction="column">
+          <h4 className="mx-2 text-right" position="fixed">
+            Total Price: Rs.{cartTotal}
+          </h4>
+          <SnackbarContent
+            className="mx-2 text-center "
+            // sx={{ Width: "100%" }}
+            message="Proceed to Buy your item"
+          />
+        </Stack>
+      )}
+      <Box height={10} />
+      {items.map((item, index) => {
+        return (
+          <Card
+            sx={{ display: "flex", width: "20rem", height: "auto" }}
+            key={index}
+            className=" text-center p-0 overflow-hidden shadow mx-auto mb-4"
+          >
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Stack direction="row" spacing={2}>
+                <CardContent sx={{ flex: "1 0 auto" }}>
+                  <Typography component="div" variant="h5">
+                    {item.name}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    component="div"
+                  >
+                    Rs. {item.price}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    component="div"
+                  >
+                    {item.unit}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    component="div"
+                  >
+                    {item.description}
+                  </Typography>
+                </CardContent>
+                <Box sx={{ maxHeight: "4rem", maxWidth: "5rem" }}>
+                  <CardMedia
+                    component="img"
+                    src={item.image}
+                    alt={item.title}
+                  />
+                </Box>
+              </Stack>
+
+              <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
+                <Button variant="outlined">
+                  <RemoveIcon
+                    onClick={() =>
+                      updateItemQuantity(item.id, item.quantity - 1)
+                    }
+                  />
+                </Button>
+                <Button variant="outlined">{item.quantity}</Button>
+                <Button variant="outlined">
+                  <AddIcon
+                    onClick={() =>
+                      updateItemQuantity(item.id, item.quantity + 1)
+                    }
+                  />
+                </Button>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
+                <Button variant="outlined">
+                  <DeleteIcon onClick={() => removeItem(item.id)} />
+                  Delete
+                </Button>
+              </Box>
+            </Box>
+          </Card>
+        );
+      })}
     </>
-   
   );
 };
 
