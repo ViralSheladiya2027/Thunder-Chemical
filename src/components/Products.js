@@ -13,7 +13,7 @@ const Products = (props) => {
   };
   return (
     <Card
-      style={{ width: "18rem", height: "auto" }}
+      style={{ width: "17rem", height: "auto" }}
       className=" text-center p-0 overflow-hidden shadow mx-auto mb-4"
     >
       <div
@@ -27,7 +27,7 @@ const Products = (props) => {
           marginBottom: "inherit",
         }}
       >
-        <div style={{ width: "9rem" }}>
+        <div style={{ maxHeight: "6rem", maxWidth: "7rem" }}>
           <Card.Img variant="top" src={image} className="img-fluid" />
         </div>
       </div>
@@ -42,13 +42,13 @@ const Products = (props) => {
           {name}
         </Card.Title>
         <Card.Title>
-          Rs. <span className="h3">{price}</span>
+          Rs. <span className="h4">{price}</span>
         </Card.Title>
         <Card.Title>
-          <span className="h3">{unit}</span>
+          <span className="h4">{unit}</span>
         </Card.Title>
          <Card.Title>
-          <span className="h3">{description}</span>
+          <span className="h4">{description}</span>
         </Card.Title>
         <span
           onClick={() => addToCart()}

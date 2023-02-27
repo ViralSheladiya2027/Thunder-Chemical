@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import Container from "@mui/material/Container";
 import {
   AppBar,
@@ -20,10 +20,37 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useCart } from "react-use-cart";
+import { db , auth } from "./Firebase";
+
 
 const NavBar = () => {
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [auth, setAuth] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  // getting currentuser
+
+  // function getCurrentUser(){
+  //   const [user, setUser] = useState(null);
+    
+  //   useEffect(() => {
+  //     auth.onAuthStateChanged(user=>{
+  //       if(user){
+  //        db .collection("user").doc(user.uId).get().then(snapshot=>{
+  //         setUser(snapshot.data().fullname);
+  //        })
+  //       }
+  //       else{
+  //         setUser(null);
+  //       }
+  //     })
+    
+  //     return user;
+  //   }, [])
+    
+  //   }
+  
+  //   const user=getCurrentUser();
+
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -48,7 +75,7 @@ const NavBar = () => {
           control={
             <Switch
               checked={auth}
-              onChange={handleChange}
+              // onChange={handleChange}
               aria-label="login switch"
             />
           }
@@ -60,6 +87,7 @@ const NavBar = () => {
           <Toolbar>
             <Link className="nav-link" to="/">
               <img src={logo} height="40px" style={{ marginRight: "15px" }} />
+              {/* {user} */}
             </Link>
             {/* <SearchIcon />
             <InputBase
@@ -77,7 +105,7 @@ const NavBar = () => {
               color="inherit"
               sx={{ marginLeft: "auto" }}
             >
-              <AccountCircle />
+              <AccountCircle  />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -94,8 +122,8 @@ const NavBar = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-            
-             <MenuItem onClick={handleClose}>
+            {/* {!user && <> */}
+              <MenuItem onClick={handleClose}>
                 {" "}
                 <Link className="nav-link" to="/signup">
                   Sign Up
@@ -106,9 +134,14 @@ const NavBar = () => {
                   Login
                 </Link>
               </MenuItem>
+            {/* </>} */}
+             
+             {/* {user&&<> */}
               <MenuItem  onClick={logOutClick} primary="Logout">
                  Logout            
               </MenuItem>
+             {/* </>} */}
+              
             </Menu>
 
             <Link className="nav-link" to="/cart">

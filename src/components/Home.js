@@ -27,30 +27,7 @@ const Home = (props) => {
   }, []);
 
   
-    // const storageRef = ref(storage, `images/${image.name}`);
-    // const uploadTask = uploadBytesResumable(storageRef, image);
-    // uploadTask.on(
-    //   "state_changed",
-    //   (snapshot) => {
-    //     const progress = Math.round(
-    //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-    //     );
-    //   },
-    //   (error) => {
-    //     alert(error);
-    //   },
-      // () => {
-      //   getDownloadURL(storageRef.snapshot.ref).then((downloadURL) => {
-      //     addDoc(empCollectionRef, {
-      //       image: downloadURL,
-      //       name: name,
-      //       price: Number(price),
-      //       unit: unit,
-      //     });
-      //     console.log("URL::" + downloadURL);
-      //   });
-      // }
-    // );
+    
     const getUsers = async () => {
     const data = await getDocs(empCollectionRef);
     setData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
