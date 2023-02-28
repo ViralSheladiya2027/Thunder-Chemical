@@ -1,7 +1,7 @@
-
+import NavBar from "./NavBar";
 import React, {useEffect, useState} from 'react';
 import { Container, Row, Col, InputGroup, FormControl } from 'react-bootstrap';
-import { db, storage } from "./Firebase";
+import { db, storage,auth } from "./Firebase";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { BiSearch } from 'react-icons/bi';
@@ -22,6 +22,7 @@ const Home = (props) => {
   // const [image, setImage] = useState("");
   const empCollectionRef = collection(db, "products");
 
+
   useEffect(() => {
     getUsers();
   }, []);
@@ -34,8 +35,34 @@ const Home = (props) => {
     
   };
 
+  // getting currentuser
+
+  function getCurrentUser(){
+    const [user, setUser] = useState(null);
+    
+    useEffect(() => {
+      auth.onAuthStateChanged(user=>{
+        if(user){
+         db .collection("user").doc(user.uId).get().then(snapshot=>{
+          setUser(snapshot.data().fullname);
+         })
+        }
+        else{
+          setUser(null);
+        }
+      })
+    
+      
+    }, [])
+    return user;
+    }
+  
+    const user=getCurrentUser();
+
     return (
-        <Container className="py-4">
+        <>      
+        <NavBar user={user}/>
+          <Container className="py-4">
             <Row className="justify-content-center">
                 <Col xs={10} md={7} lg={6} xl={4} className="mb-3 mx-auto text-center">
                     <h2>Thunder Chemical</h2>
@@ -67,7 +94,8 @@ const Home = (props) => {
                 </div>
              </Row>
          </Container>
-        
+         </>
+
     );
 };
 

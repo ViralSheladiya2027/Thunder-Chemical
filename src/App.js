@@ -13,7 +13,7 @@ import Cart from "./components/Cart";
   return (
     <>
       <Router>
-        <NavBar />
+        {/* <NavBar  /> */}
 
         <Routes>
           <Route exact path="/" element={<Home />} />

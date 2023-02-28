@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button, Container, Col, Row, Table } from "react-bootstrap";
 import { useCart } from "react-use-cart";
@@ -10,6 +9,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useState, useEffect } from "react";
 // import { Card } from "react-bootstrap";
 import {
+  // Button,
   Alert,
   Autocomplete,
   Box,
@@ -23,7 +23,7 @@ import {
   TablePagination,
   Typography,
 } from "@mui/material";
-import { TextField, TableContainer, TableHead, TableRow } from "@mui/material";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useStore } from "../Store";
@@ -31,7 +31,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-
 
 const Cart = ({ closeEvent }) => {
   const {
@@ -43,14 +42,6 @@ const Cart = ({ closeEvent }) => {
     emptyCart,
   } = useCart();
 
-  const [data, setData] = useState([]);
-  const [image, setImage] = useState(null);
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [unit, setUnit] = useState("");
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const rows = useStore((state) => state.rows);
   const setRows = useStore((state) => state.setRows);
   const empCollectionRef = collection(db, "orders");
 
@@ -96,31 +87,6 @@ const Cart = ({ closeEvent }) => {
   };
 
   return (
-    //                      {!isEmpty &&
-    //                 <Row
-    //                     style={{ position: 'fixed', bottom: 0}}
-    //                     className=' justify-content-center w-100'
-    //                 >
-    //                     <Col className="py-2">
-    //                         <h4>Total Price: Rs. {cartTotal}</h4>
-    //                     </Col>
-    //                     <Col className="p-0" md={4}>
-    //                         <Button variant="danger"
-    //                             className="m-2"
-    //                             onClick={()=> emptyCart()}
-    //                         >
-    //                             <BsCartX size="1.7rem" />
-    //                             Clear Cart
-    //                         </Button>
-    //                         <Button variant="success"
-    //                             className="m-3"
-    //                             // onClick={userOrder}
-    //                         >
-    //                             <BsCartCheck size="1.7rem" />
-    //                             Submit
-    //                         </Button>
-    //
-
     <>
       <h1 className=" my-4 text-center">
         {isEmpty ? "Your Cart is Empty" : "The Cart"}
@@ -148,28 +114,16 @@ const Cart = ({ closeEvent }) => {
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Stack direction="row" spacing={2}>
                 <CardContent sx={{ flex: "1 0 auto" }}>
-                  <Typography component="div" variant="h5">
+                  <Typography component="div" variant="h6">
                     {item.name}
                   </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    color="text.secondary"
-                    component="div"
-                  >
-                    Rs. {item.price}
+                  <Typography variant="h4" >
+                    <CurrencyRupeeIcon /> {item.price}
                   </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    color="text.secondary"
-                    component="div"
-                  >
+                  <Typography  variant="body1">
                     {item.unit}
                   </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    color="text.secondary"
-                    component="div"
-                  >
+                  <Typography variant="body1">
                     {item.description}
                   </Typography>
                 </CardContent>

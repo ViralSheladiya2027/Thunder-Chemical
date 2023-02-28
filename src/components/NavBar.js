@@ -23,7 +23,7 @@ import { useCart } from "react-use-cart";
 import { db , auth } from "./Firebase";
 
 
-const NavBar = () => {
+const NavBar = ({user}) => {
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -75,7 +75,7 @@ const NavBar = () => {
           control={
             <Switch
               checked={auth}
-              // onChange={handleChange}
+              onChange={handleChange}
               aria-label="login switch"
             />
           }
@@ -122,7 +122,7 @@ const NavBar = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-            {/* {!user && <> */}
+            {!user && <>
               <MenuItem onClick={handleClose}>
                 {" "}
                 <Link className="nav-link" to="/signup">
@@ -134,13 +134,13 @@ const NavBar = () => {
                   Login
                 </Link>
               </MenuItem>
-            {/* </>} */}
+            </>}
              
-             {/* {user&&<> */}
+             {user && <>
               <MenuItem  onClick={logOutClick} primary="Logout">
                  Logout            
               </MenuItem>
-             {/* </>} */}
+             </>}
               
             </Menu>
 
