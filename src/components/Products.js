@@ -50,7 +50,7 @@ const Products = (props) => {
             marginBottom: "inherit",
           }}
         >
-          <div style={{ maxHeight: "6rem", maxWidth: "7rem" }}>
+          <div style={{ maxHeight: "8rem", maxWidth: "7rem" }}>
             <Card.Img variant="top" src={image} className="img-fluid" />
           </div>
         </div>

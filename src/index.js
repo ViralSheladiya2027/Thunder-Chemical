@@ -9,11 +9,11 @@ import { CartProvider}  from 'react-use-cart'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <CartProvider >
       <App />
    </CartProvider >
-    </React.StrictMode>,
+    // </React.StrictMode>,
    
 );
 
