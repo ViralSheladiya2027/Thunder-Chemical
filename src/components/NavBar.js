@@ -22,18 +22,18 @@ import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useCart } from "react-use-cart";
 import { db , auth } from "./Firebase";
+import { useNavigate } from "react-router-dom";
+import { BiSearch } from 'react-icons/bi';
 
 
 
 
 const NavBar = ({user}) => {
-  const [auth, setAuth] = useState(true);
+  
   const [anchorEl, setAnchorEl] = useState(null);
 
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
+ 
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,39 +42,39 @@ const NavBar = ({user}) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const navigate = useNavigate();
+
   const logOutClick =()=>{
     auth.signOut();
+    navigate("/signup");
   }
   const { isEmpty, totalItems } = useCart();
 
   return (
     <div>
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={auth}
-              onChange={handleChange}
-              aria-label="login switch"
-            />
-          }
-          label={auth ? "Logout" : "Login"}
-        />
-      </FormGroup>
       <Box sx={{ flexgrow: "1", height: "18px" }}>
         <AppBar position="fixed" style={{ background: "#263238" }}>
           <Toolbar>
             <Link className="nav-link" to="/">
               <img src={logo} height="40px" style={{ marginRight: "15px" }} />
-             <Typography>{user}</Typography> 
+             <Typography sx={{backgroud:"white"}}>{user}</Typography> 
             </Link>
-            <SearchIcon />
+            {/* <SearchIcon />
             <InputBase
               sx={{ color: "white" }}
               placeholder="Search..."
               aria-label="search "
-            />
-    
+            /> */}
+    <div style ={{display:"flex",border:"none"}}>
+      <div>
+      <input type="text" placeholder="Search Thunder Chemical..." style={{width : "640px",height:"38px"}} />
+
+      </div>
+      <div>
+      <BiSearch size="0.5rem" style={{background: "yellow",color:"black",height:"38px",width:"38px" }} />
+      </div>
+    </div>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -113,13 +113,13 @@ const NavBar = ({user}) => {
                   Login
                 </Link>
               </MenuItem>
-              {/* </>  } */}
+             {/* </> } */}
              
-             {/* {user && <> */}
+             {/* {user &&  */}
               <MenuItem  onClick={logOutClick} primary="Logout">
                  Logout            
               </MenuItem>
-             {/* </>} */}
+             {/* }  */}
               
             </Menu>
 

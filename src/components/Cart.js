@@ -7,7 +7,8 @@ import { BsCartCheck, BsCartX } from "react-icons/bs";
 import Swal from "sweetalert2";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useState, useEffect } from "react";
-// import { Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
 import {
   // Button,
   Alert,
@@ -48,7 +49,7 @@ const Cart = ({ closeEvent }) => {
   useEffect(() => {
     getUsers();
   }, []);
-
+  
   // const userOrder = async (e) => {
   //   e.preventDefault();
   //   if (image === null) return;
@@ -85,10 +86,19 @@ const Cart = ({ closeEvent }) => {
     const data = await getDocs(empCollectionRef);
     setRows(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
+  const navigate = useNavigate();
+
+  const userOrder=()=>{
+        // closeEvent();
+    Swal.fire("submitted", "your order has been submitted", "success");
+    navigate("/");
+emptyCart()
+  }
 
   return (
     <>
-      <h1 className=" my-4 text-center">
+   
+    <h1 className=" my-4 text-center">
         {isEmpty ? "Your Cart is Empty" : "The Cart"}
       </h1>
       {!isEmpty && (
@@ -99,6 +109,7 @@ const Cart = ({ closeEvent }) => {
           <SnackbarContent
             className="mx-2 text-center "
             // sx={{ Width: "100%" }}
+           onClick={userOrder}
             message="Proceed to Buy your item"
           />
         </Stack>
@@ -163,6 +174,8 @@ const Cart = ({ closeEvent }) => {
           </Card>
         );
       })}
+   
+     
     </>
   );
 };
