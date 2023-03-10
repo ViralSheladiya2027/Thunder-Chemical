@@ -1,20 +1,10 @@
-import React ,{useState}from "react";
-import { Card } from "react-bootstrap";
-import { useCart } from "react-use-cart";
-import { BsCartPlus } from "react-icons/bs";
-import {
-  Button,
-  CardMedia,
-  Stack,
-  Typography,
-  CardContent,
-  Box,
-  CardActionArea,
-  CardActions,
-  Rating,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import { Button, CardContent, Rating, Stack, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { Card } from "react-bootstrap";
+import { BsCartPlus } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "react-use-cart";
 
 const Products = (props) => {
   let { name, image, price, unit, description } = props.data;
@@ -59,12 +49,12 @@ const Products = (props) => {
         <CardContent>
           <Typography variant="h6">{name}</Typography>
           <Rating
-        name="simple-controlled"
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      />
+            name="simple-controlled"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          />
           <Typography variant="h4">
             {" "}
             <CurrencyRupeeIcon /> {price}

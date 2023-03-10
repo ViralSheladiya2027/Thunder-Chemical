@@ -1,26 +1,19 @@
-import {
-  Box,
-  Typography,
-  TextField,
-  CircularProgress,
-  Button,
-} from "@mui/material";
-import React, { useState } from "react";
-import Container from "@mui/material/Container";
-import logo from "../logo/logo.png";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import Alert from "@mui/material/Alert";
+import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import {
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../logo/logo.png";
 import { auth, db } from "./Firebase";
-import { useNavigate } from "react-router-dom";
-import Alert from "@mui/material/Alert";
-import { collection, addDoc } from "firebase/firestore";
-import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -115,9 +108,10 @@ const Signup = () => {
             p: "24px",
           }}
         >
-         
-          <img src={logo} height="50px" />
-          <Typography align="left" variant="h5" >Sign Up</Typography>
+          <img src={logo} height="50px" alt="logo" />
+          <Typography align="left" variant="h5">
+            Sign Up
+          </Typography>
           <TextField
             label="Full Name"
             id="outlined-size-small"
@@ -183,7 +177,7 @@ const Signup = () => {
             label="Address"
             id="outlined-size-small"
             size="small"
-            multiline          
+            multiline
             fullWidth
             margin="normal"
             padding="normal"
@@ -205,7 +199,7 @@ const Signup = () => {
             fullWidth
             color="primary"
             onClick={handleSignup}
-            style={{ background: "#263238"}}
+            style={{ background: "#263238" }}
           >
             sign up
           </Button>

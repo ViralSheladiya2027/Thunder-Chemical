@@ -1,26 +1,15 @@
-import {
-  Box,
-  Typography,
-  TextField,
-  CircularProgress,
-  Button,
-} from "@mui/material";
-import React, { useState } from "react";
-import Container from "@mui/material/Container";
-import logo from "../logo/logo.png";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import Alert from "@mui/material/Alert";
+import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
-import { auth, db } from "./Firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Alert from "@mui/material/Alert";
-import { collection, addDoc } from "firebase/firestore";
-
+import logo from "../logo/logo.png";
+import { auth } from "./Firebase";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -55,8 +44,6 @@ const Login = () => {
     }
   };
 
-
-
   return (
     <>
       {successMsg && (
@@ -86,7 +73,7 @@ const Login = () => {
             p: "24px",
           }}
         >
-          <img src={logo} height="50px" />
+          <img src={logo} height="50px" alt="logo"/>
           <Typography align="left" variant="h5">
             Login
           </Typography>
@@ -142,7 +129,7 @@ const Login = () => {
             fullWidth
             color="primary"
             onClick={handleLogin}
-            style={{ background: "#263238"}}
+            style={{ background: "#263238" }}
           >
             login
           </Button>

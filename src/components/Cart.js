@@ -1,37 +1,20 @@
-import React from "react";
-import { Button, Container, Col, Row, Table } from "react-bootstrap";
-import { useCart } from "react-use-cart";
-import { db, storage } from "./Firebase";
-import { collection, getDocs, addDoc } from "firebase/firestore";
-import { BsCartCheck, BsCartX } from "react-icons/bs";
-import Swal from "sweetalert2";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect } from "react";
+import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "react-use-cart";
+import Swal from "sweetalert2";
+import { db } from "./Firebase";
 
-import {
-  // Button,
-  Alert,
-  Autocomplete,
-  Box,
-  Divider,
-  Paper,
-  Snackbar,
-  SnackbarContent,
-  Stack,
-  TableBody,
-  TableCell,
-  TablePagination,
-  Typography,
-} from "@mui/material";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { useStore } from "../Store";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveIcon from "@mui/icons-material/Remove";
+import { Box, Stack, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import { useStore } from "../Store";
 
 const Cart = ({ closeEvent }) => {
   const {
@@ -41,6 +24,7 @@ const Cart = ({ closeEvent }) => {
     updateItemQuantity,
     removeItem,
     emptyCart,
+    totalItems,
   } = useCart();
 
   const setRows = useStore((state) => state.setRows);
@@ -49,7 +33,7 @@ const Cart = ({ closeEvent }) => {
   useEffect(() => {
     getUsers();
   }, []);
-  
+
   // const userOrder = async (e) => {
   //   e.preventDefault();
   //   if (image === null) return;
@@ -88,17 +72,16 @@ const Cart = ({ closeEvent }) => {
   };
   const navigate = useNavigate();
 
-  const userOrder=()=>{
-        // closeEvent();
+  const userOrder = () => {
+    // closeEvent();
     Swal.fire("submitted", "your order has been submitted", "success");
     navigate("/");
-emptyCart()
-  }
+    emptyCart();
+  };
 
   return (
     <>
-   
-    <h1 className=" my-4 text-center">
+      <h1 className=" my-4 text-center">
         {isEmpty ? "Your Cart is Empty" : "The Cart"}
       </h1>
       {!isEmpty && (
@@ -107,18 +90,26 @@ emptyCart()
             Total Price: Rs.{cartTotal}
           </h4>
           <Button
+            variant="contained"
             className="mx-2 text-center "
-            style={{ background: "#263238",height: "35px",color:"white",fontFamily:"inherit"}}
-           onClick={userOrder}
-            
-          > Proceed to Buy your item</Button>
+            style={{ background: "#263238", height: "35px", color: "white" }}
+            onClick={userOrder}
+          >
+            {" "}
+            Proceed to Buy your ({totalItems} items){" "}
+          </Button>
         </Stack>
       )}
       <Box height={10} />
       {items.map((item, index) => {
         return (
           <Card
-            sx={{ display: "flex", width: "20rem", height: "auto" }}
+            sx={{
+              display: "flex",
+              width: "20rem",
+              height: "auto",
+              background: "#f5f5f5",
+            }}
             key={index}
             className=" text-center p-0 overflow-hidden shadow mx-auto mb-4"
           >
@@ -128,15 +119,11 @@ emptyCart()
                   <Typography component="div" variant="h6">
                     {item.name}
                   </Typography>
-                  <Typography variant="h4" >
+                  <Typography variant="h4">
                     <CurrencyRupeeIcon /> {item.price}
                   </Typography>
-                  <Typography  variant="body1">
-                    {item.unit}
-                  </Typography>
-                  <Typography variant="body1">
-                    {item.description}
-                  </Typography>
+                  <Typography variant="body1">{item.unit}</Typography>
+                  <Typography variant="body1">{item.description}</Typography>
                 </CardContent>
                 <Box sx={{ maxHeight: "4rem", maxWidth: "5rem" }}>
                   <CardMedia
@@ -148,16 +135,17 @@ emptyCart()
               </Stack>
 
               <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-                <Button  variant="outlined">
+                <Button variant="outlined" style={{ background: "#bdbdbd" }}>
                   <RemoveIcon
                     onClick={() =>
                       updateItemQuantity(item.id, item.quantity - 1)
-                  
                     }
                   />
                 </Button>
-                <Button variant="outlined">{item.quantity}</Button>
-                <Button variant="outlined" >
+                <Button variant="outlined" style={{ background: "#f5f5f5" }}>
+                  {item.quantity}
+                </Button>
+                <Button variant="outlined" style={{ background: "#bdbdbd" }}>
                   <AddIcon
                     onClick={() =>
                       updateItemQuantity(item.id, item.quantity + 1)
@@ -166,7 +154,7 @@ emptyCart()
                 </Button>
               </Box>
               <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-                <Button variant="outlined" >
+                <Button variant="outlined">
                   <DeleteIcon onClick={() => removeItem(item.id)} />
                   Delete
                 </Button>
@@ -175,8 +163,6 @@ emptyCart()
           </Card>
         );
       })}
-   
-     
     </>
   );
 };

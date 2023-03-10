@@ -1,39 +1,24 @@
-import React, {useState,useEffect} from "react";
-import Container from "@mui/material/Container";
+import { AccountCircle } from "@mui/icons-material";
+import SearchIcon from "@mui/icons-material/Search";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   AppBar,
-  Box,
   Badge,
-  Switch,
-  FormControlLabel,
-  FormGroup,
-  MenuItem,
-  Menu,
+  Box,
   IconButton,
-  InputBase,
-  TextField,
+  Menu,
+  MenuItem,
   Toolbar,
   Typography,
 } from "@mui/material";
-import logo from "../logo/logo.png";
-import { AccountCircle, Search } from "@mui/icons-material";
-import SearchIcon from "@mui/icons-material/Search";
-import { Link } from "react-router-dom";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
-import { db , auth } from "./Firebase";
-import { useNavigate } from "react-router-dom";
-import { BiSearch } from 'react-icons/bi';
+import logo from "../logo/logo.png";
+import { auth } from "./Firebase";
 
-
-
-
-const NavBar = ({user}) => {
-  
+const NavBar = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-
-
- 
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -45,20 +30,20 @@ const NavBar = ({user}) => {
 
   const navigate = useNavigate();
 
-  const logOutClick =()=>{
+  const logOutClick = () => {
     auth.signOut();
     navigate("/signup");
-  }
-  const { isEmpty, totalItems } = useCart();
+  };
+  const { totalItems } = useCart();
 
   return (
     <div>
-      <Box sx={{ flexgrow: "1", height: "18px" }}>
+      <Box sx={{ flexgrow: "1", height: "18px" }}>        
         <AppBar position="fixed" style={{ background: "#263238" }}>
           <Toolbar>
             <Link className="nav-link" to="/">
-              <img src={logo} height="40px" style={{ marginRight: "15px" }} />
-             {/* <Typography sx={{backgroud:"white"}}>{user}</Typography>  */}
+              <img src={logo} alt="logo" height="40px" style={{ marginRight: "15px" }} />
+              <Typography sx={{backgroud:"white"}}>{user}</Typography> 
             </Link>
             {/* <SearchIcon />
             <InputBase
@@ -66,15 +51,40 @@ const NavBar = ({user}) => {
               placeholder="Search..."
               aria-label="search "
             /> */}
-    <div style ={{display:"flex"}}>
-      <div>
-      <input type="text" placeholder="Search Thunder Chemical....." style={{width : "640px",height:"38px",paddingLeft : "15px",borderRight :"none",borderRadius:"none"}} />
-
-      </div>
-      <div>
-      <SearchIcon size="small" style={{background: "#607d8b",color:"black",height:"38px",width:"38px" }} />
-      </div>
-    </div>
+            <div
+              style={{
+                display: "flex",
+                flexgrow: "1",
+                alignItems: "center",
+                borderRadius: "none",
+                paddingLeft: "130px",
+                marginLeft:"5px"
+              }}
+            >
+              <div>
+                <input
+                  type="text"
+                  placeholder="Search Thunder Chemical....."
+                  style={{
+                    width: "640px",
+                    height: "38px",
+                    paddingLeft: "15px",
+                    border: "none",
+                  }}
+                />
+              </div>
+              <div>
+                <SearchIcon
+                  size="small"
+                  style={{
+                    background: "#607d8b",
+                    color: "black",
+                    height: "40px",
+                    width: "38px",
+                  }}
+                />
+              </div>
+            </div>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -84,7 +94,7 @@ const NavBar = ({user}) => {
               color="inherit"
               sx={{ marginLeft: "auto" }}
             >
-              <AccountCircle  />
+              <AccountCircle />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -101,26 +111,29 @@ const NavBar = ({user}) => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-            {/* {!user && <> */}
-              <MenuItem onClick={handleClose}>
-                {" "}
-                <Link className="nav-link" to="/signup">
-                  Sign Up
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleClose}>
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </MenuItem>
-             {/* </> } */}
-             
-             {/* {user &&  */}
-              <MenuItem  onClick={logOutClick} primary="Logout">
-                 Logout            
-              </MenuItem>
-             {/* }  */}
-              
+              {!user && (
+                <>
+                  <MenuItem onClick={handleClose}>
+                    {" "}
+                    <Link className="nav-link" to="/signup">
+                      Sign Up
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <Link className="nav-link" to="/login">
+                      Login
+                    </Link>
+                  </MenuItem>
+                </>
+              )}
+
+              {user && (
+                <>
+                  <MenuItem onClick={logOutClick} primary="Logout">
+                    Logout
+                  </MenuItem>
+                </>
+              )}
             </Menu>
 
             <Link className="nav-link" to="/cart">
