@@ -142,6 +142,7 @@ const Login = () => {
             fullWidth
             color="primary"
             onClick={handleLogin}
+            style={{ background: "#263238"}}
           >
             login
           </Button>

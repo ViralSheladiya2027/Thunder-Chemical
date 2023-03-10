@@ -205,6 +205,7 @@ const Signup = () => {
             fullWidth
             color="primary"
             onClick={handleSignup}
+            style={{ background: "#263238"}}
           >
             sign up
           </Button>

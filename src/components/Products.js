@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState}from "react";
 import { Card } from "react-bootstrap";
 import { useCart } from "react-use-cart";
 import { BsCartPlus } from "react-icons/bs";
@@ -11,12 +11,14 @@ import {
   Box,
   CardActionArea,
   CardActions,
+  Rating,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 const Products = (props) => {
   let { name, image, price, unit, description } = props.data;
+  const [value, setValue] = useState(5);
 
   const { addItem } = useCart();
   const navigate = useNavigate();
@@ -56,7 +58,13 @@ const Products = (props) => {
         </div>
         <CardContent>
           <Typography variant="h6">{name}</Typography>
-
+          <Rating
+        name="simple-controlled"
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+      />
           <Typography variant="h4">
             {" "}
             <CurrencyRupeeIcon /> {price}

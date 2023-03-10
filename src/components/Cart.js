@@ -106,12 +106,12 @@ emptyCart()
           <h4 className="mx-2 text-right" position="fixed">
             Total Price: Rs.{cartTotal}
           </h4>
-          <SnackbarContent
+          <Button
             className="mx-2 text-center "
-            // sx={{ Width: "100%" }}
+            style={{ background: "#263238",height: "35px",color:"white",fontFamily:"inherit"}}
            onClick={userOrder}
-            message="Proceed to Buy your item"
-          />
+            
+          > Proceed to Buy your item</Button>
         </Stack>
       )}
       <Box height={10} />
@@ -148,15 +148,16 @@ emptyCart()
               </Stack>
 
               <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-                <Button variant="outlined">
+                <Button  variant="outlined">
                   <RemoveIcon
                     onClick={() =>
                       updateItemQuantity(item.id, item.quantity - 1)
+                  
                     }
                   />
                 </Button>
                 <Button variant="outlined">{item.quantity}</Button>
-                <Button variant="outlined">
+                <Button variant="outlined" >
                   <AddIcon
                     onClick={() =>
                       updateItemQuantity(item.id, item.quantity + 1)
@@ -165,7 +166,7 @@ emptyCart()
                 </Button>
               </Box>
               <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-                <Button variant="outlined">
+                <Button variant="outlined" >
                   <DeleteIcon onClick={() => removeItem(item.id)} />
                   Delete
                 </Button>

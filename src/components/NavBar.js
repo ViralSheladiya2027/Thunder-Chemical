@@ -58,7 +58,7 @@ const NavBar = ({user}) => {
           <Toolbar>
             <Link className="nav-link" to="/">
               <img src={logo} height="40px" style={{ marginRight: "15px" }} />
-             <Typography sx={{backgroud:"white"}}>{user}</Typography> 
+             {/* <Typography sx={{backgroud:"white"}}>{user}</Typography>  */}
             </Link>
             {/* <SearchIcon />
             <InputBase
@@ -66,13 +66,13 @@ const NavBar = ({user}) => {
               placeholder="Search..."
               aria-label="search "
             /> */}
-    <div style ={{display:"flex",border:"none"}}>
+    <div style ={{display:"flex"}}>
       <div>
-      <input type="text" placeholder="Search Thunder Chemical..." style={{width : "640px",height:"38px"}} />
+      <input type="text" placeholder="Search Thunder Chemical....." style={{width : "640px",height:"38px",paddingLeft : "15px",borderRight :"none",borderRadius:"none"}} />
 
       </div>
       <div>
-      <BiSearch size="0.5rem" style={{background: "yellow",color:"black",height:"38px",width:"38px" }} />
+      <SearchIcon size="small" style={{background: "#607d8b",color:"black",height:"38px",width:"38px" }} />
       </div>
     </div>
             <IconButton
