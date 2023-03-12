@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import { auth, db } from "./Firebase";
 import NavBar from "./NavBar";
-
+// import { onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
 import SearchFilter from "react-filter-search";
-import { BiSearch } from "react-icons/bi";
+// import { BiSearch } from "react-icons/bi";
 import Products from "../components/Products";
 
 const Home = (props) => {
@@ -13,11 +13,6 @@ const Home = (props) => {
   // const [productData, setProductData] = useState([]);
 
   const [data, setData] = useState([]);
-  // const [user, setUser] = useState(null);
-  //  const [name, setName] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [unit, setUnit] = useState("");
-  // const [image, setImage] = useState("");
   const empCollectionRef = collection(db, "products");
   //   const empCollectionRefUser = collection(db, "user");
 
@@ -56,28 +51,9 @@ const Home = (props) => {
   return (
     <>
       <NavBar user={user} />
-
+      <br></br>
       {/* <NavBar/>  */}
-      <div
-        className="mb-3"
-        sx={{
-          border: "none",
-          width: "80%",
-          outline: "none",
-          padding: "0 15px",
-        }}
-      >
-        <input
-          type="text"
-          placeholder="Search Thunder Chemical....."
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          
-        />
-        
-        <BiSearch size="2rem" />
-        
-      </div>
+
       <Container className="py-4">
         <Row className="justify-content-center">
           {/* <Col xs={10} md={7} lg={6} xl={4} className="mb-3 mx-auto text-center"> */}

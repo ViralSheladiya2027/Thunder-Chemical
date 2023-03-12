@@ -52,24 +52,30 @@ const NavBar = ({ user }) => {
               aria-label="search "
             /> */}
             <div
+            xs={10} md={7} lg={6} xl={4}
               style={{
                 display: "flex",
                 flexgrow: "1",
                 alignItems: "center",
                 borderRadius: "none",
-                paddingLeft: "130px",
-                marginLeft:"5px"
+                // paddingLeft: "130px",
+                // marginLeft:"5px"
+                margin:"auto",
+                padding:"auto",width:"100%"
               }}
             >
               <div>
                 <input
                   type="text"
+                  
                   placeholder="Search Thunder Chemical....."
                   style={{
-                    width: "640px",
+                    // width: "640px",
+                    width:"100%",
                     height: "38px",
                     paddingLeft: "15px",
                     border: "none",
+                    outline:"none"
                   }}
                 />
               </div>

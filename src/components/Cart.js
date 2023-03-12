@@ -123,7 +123,7 @@ const Cart = ({ closeEvent }) => {
                     <CurrencyRupeeIcon /> {item.price}
                   </Typography>
                   <Typography variant="body1">{item.unit}</Typography>
-                  <Typography variant="body1">{item.description}</Typography>
+                  <Typography sx={{width:"150px"}} variant="body1">{item.description}</Typography>
                 </CardContent>
                 <Box sx={{ maxHeight: "4rem", maxWidth: "5rem" }}>
                   <CardMedia

@@ -48,13 +48,7 @@ const Products = (props) => {
         </div>
         <CardContent>
           <Typography variant="h6">{name}</Typography>
-          <Rating
-            name="simple-controlled"
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-          />
+         
           <Typography variant="h4">
             {" "}
             <CurrencyRupeeIcon /> {price}
@@ -63,7 +57,14 @@ const Products = (props) => {
           <Typography variant="body1">{unit}</Typography>
 
           <Typography variant="body1">{description}</Typography>
-
+          <Rating
+            name="simple-controlled"
+            size="small"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          />
           <Stack direction="column" spacing={1}>
             <Button
               variant="contained"
