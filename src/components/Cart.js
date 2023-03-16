@@ -81,7 +81,7 @@ const Cart = ({ closeEvent }) => {
 
   return (
     <>
-      <h1 className=" my-4 text-center">
+      <h1 className=" my-5 text-center">
         {isEmpty ? "Your Cart is Empty" : "The Cart"}
       </h1>
       {!isEmpty && (

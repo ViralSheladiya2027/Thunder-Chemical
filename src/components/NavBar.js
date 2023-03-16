@@ -9,9 +9,8 @@ import {
   Menu,
   MenuItem,
   Toolbar,
-  Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
 import logo from "../logo/logo.png";
@@ -19,6 +18,8 @@ import { auth } from "./Firebase";
 
 const NavBar = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [searchProduct, setSearchProduct] = useState("");
+  const [products, setProducts] = useState([]);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,6 +31,13 @@ const NavBar = ({ user }) => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const newProducts = products.filter((value) =>
+      value.name.toLowerCase().includes(searchProduct.toLowerCase())
+    );
+    setProducts(newProducts);
+  }, [searchProduct]);
+
   const logOutClick = () => {
     auth.signOut();
     navigate("/signup");
@@ -38,21 +46,22 @@ const NavBar = ({ user }) => {
 
   return (
     <div>
-      <Box sx={{ flexgrow: "1", height: "18px" }}>        
+      <Box sx={{ flexgrow: "1", height: "18px" }}>
         <AppBar position="fixed" style={{ background: "#263238" }}>
           <Toolbar>
             <Link className="nav-link" to="/">
-              <img src={logo} alt="logo" height="40px" style={{ marginRight: "15px" }} />
-              <Typography sx={{backgroud:"white"}}>{user}</Typography> 
+              <img
+                src={logo}
+                alt="logo"
+                height="40px"
+                style={{ marginRight: "15px" }}
+              />
             </Link>
-            {/* <SearchIcon />
-            <InputBase
-              sx={{ color: "white" }}
-              placeholder="Search..."
-              aria-label="search "
-            /> */}
             <div
-            xs={10} md={7} lg={6} xl={4}
+              // xs={10}
+              // md={7}
+              // lg={6}
+              // xl={4}
               style={{
                 display: "flex",
                 flexgrow: "1",
@@ -60,22 +69,24 @@ const NavBar = ({ user }) => {
                 borderRadius: "none",
                 // paddingLeft: "130px",
                 // marginLeft:"5px"
-                margin:"auto",
-                padding:"auto",width:"100%"
+                margin: "auto",
+                padding: "auto",
+                width: "100%",
               }}
             >
               <div>
                 <input
                   type="text"
-                  
-                  placeholder="Search Thunder Chemical....."
+                  value={searchProduct}
+                  onChange={(e) => setSearchProduct(e.target.value)}
+                  placeholder="Search...."
                   style={{
                     // width: "640px",
-                    width:"100%",
+                    width: "100%",
                     height: "38px",
                     paddingLeft: "15px",
                     border: "none",
-                    outline:"none"
+                    outline: "none",
                   }}
                 />
               </div>
