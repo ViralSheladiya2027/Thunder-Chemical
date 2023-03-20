@@ -27,12 +27,12 @@ const Cart = ({ closeEvent }) => {
     totalItems,
   } = useCart();
 
-  const setRows = useStore((state) => state.setRows);
-  const empCollectionRef = collection(db, "orders");
+  // const setRows = useStore((state) => state.setRows);
+  // const empCollectionRef = collection(db, "orders");
 
-  useEffect(() => {
-    getUsers();
-  }, []);
+  // useEffect(() => {
+  //   getUsers();
+  // }, []);
 
   // const userOrder = async (e) => {
   //   e.preventDefault();
@@ -66,10 +66,10 @@ const Cart = ({ closeEvent }) => {
   //     closeEvent();
   //   Swal.fire("submitted", "your order has been submitted", "success");
   // };
-  const getUsers = async () => {
-    const data = await getDocs(empCollectionRef);
-    setRows(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  };
+  // const getUsers = async () => {
+  //   const data = await getDocs(empCollectionRef);
+  //   setRows(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  // };
   const navigate = useNavigate();
 
   const userOrder = () => {

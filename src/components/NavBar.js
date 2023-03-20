@@ -45,7 +45,7 @@ const NavBar = ({ user }) => {
   const { totalItems } = useCart();
 
   return (
-    <div>
+    <>
       <Box sx={{ flexgrow: "1", height: "18px" }}>
         <AppBar position="fixed" style={{ background: "#263238" }}>
           <Toolbar>
@@ -102,6 +102,7 @@ const NavBar = ({ user }) => {
                 />
               </div>
             </div>
+            {/* <div style={{bgcolor:"white"}}>{auth.email}</div> */}
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -161,7 +162,7 @@ const NavBar = ({ user }) => {
           </Toolbar>
         </AppBar>
       </Box>
-    </div>
+    </>
   );
 };
 

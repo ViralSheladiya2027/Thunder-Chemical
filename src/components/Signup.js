@@ -9,8 +9,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
-import React, { useState } from "react";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../logo/logo.png";
 import { auth, db } from "./Firebase";
@@ -26,25 +26,26 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  // const [user, setUser] = useState([])
 
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+    console.log(email, password,fullName,address,mobileNumber);
+
+    // try {
+    //   await createUserWithEmailAndPassword(auth, email, password);
+    // } catch (err) {
+    //   console.error(err);
+    //   setErrorMsg(err.message);
+    //   setTimeout(() => {
+    //     setErrorMsg("");
+    //   }, 3000);
+    // }
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-    } catch (err) {
-      console.error(err);
-      setErrorMsg(err.message);
-      setTimeout(() => {
-        setErrorMsg("");
-      }, 3000);
-    }
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
       setSuccessMsg("signup success");
       setEmail("");
       setFullName("");
@@ -64,12 +65,15 @@ const Signup = () => {
       }, 3000);
     }
 
+
+
     try {
       await addDoc(collection(db, "user"), {
         email: email,
         address: address,
         fullname: fullName,
         mobilenumber: mobileNumber,
+        // userid:user.uid,
       });
     } catch (err) {
       setErrorMsg(err.message);
@@ -114,7 +118,7 @@ const Signup = () => {
           </Typography>
           <TextField
             label="Full Name"
-            id="outlined-size-small"
+            // id="outlined-size-small"
             size="small"
             fullWidth
             margin="normal"
@@ -125,7 +129,7 @@ const Signup = () => {
           />
           <TextField
             label="Email"
-            id="outlined-size-small"
+            // id="outlined-size-small"
             size="small"
             fullWidth
             margin="normal"
@@ -138,7 +142,7 @@ const Signup = () => {
             //  style={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             type="number"
             label="Mobile Number"
-            id="outlined-size-small"
+            // id="outlined-size-small"
             size="small"
             fullWidth
             margin="normal"
@@ -149,7 +153,7 @@ const Signup = () => {
           />
           <TextField
             label="Password"
-            id="outlined-size-small"
+            // id="outlined-size-small"
             type={showPassword ? "text" : "password"}
             size="small"
             fullWidth
@@ -175,7 +179,7 @@ const Signup = () => {
 
           <TextField
             label="Address"
-            id="outlined-size-small"
+            // id="outlined-size-small"
             size="small"
             multiline
             fullWidth
@@ -188,8 +192,12 @@ const Signup = () => {
 
           <br></br>
           <Typography>
-            Already have an account Login
-            <Link to="/login" className="link">
+            Already have an account Login{" "}
+            <Link
+              to="/login"
+              style={{ textDecoration: "none" }}
+              className="link"
+            >
               Here
             </Link>
           </Typography>

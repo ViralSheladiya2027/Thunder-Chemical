@@ -8,25 +8,34 @@ import Home from "./components/Home";
 import Cart from "./components/Cart";
 import NavBar from './components/NavBar';
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./components/Firebase";
+import { auth, db } from "./components/Firebase";
 import { Box } from '@mui/material';
+import { addDoc, collection, getDocs } from "firebase/firestore";
 
  const App = () => {
 
   function getCurrentUser() {
     const [user, setUser] = useState(null);
 
+         const userCollectionRef = collection(db, "user");
+
+  
     useEffect(() => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          // db.collection("users")
-          //   .doc(user.uid)
-          //   .get()
-          //   .then((snapshot) => {
-          //     setUser(snapshot.data().fullname);
-          //   });
+       
+          // const getUsers = async () => {
+          //   const data = await getDocs(userCollectionRef);
+          //   setUser(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+          // };
+            //  addDoc(collection(db, "user"), {
+            //  userid:user.uid
+              
+            // });
+         
           setUser(user)
-          // getDoc(user.uid)
+          // console.log(user.uid)
+          // getUsers();
         } else {
           setUser(null);
         }

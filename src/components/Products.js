@@ -7,8 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
 
 const Products = (props) => {
-  let { name, image, price, unit,rating, description } = props.data;
-  // const [value, setValue] = useState(5);
+  let { name, image, price, unit, rating, description } = props.data;
 
   const { addItem } = useCart();
   const navigate = useNavigate();
@@ -17,12 +16,9 @@ const Products = (props) => {
   };
 
   const buyNow = () => {
-    // if(user){
     console.log(props.data);
-    // }
-    // else{
-    navigate("/signup");
-    // }
+
+    navigate("/cart");
   };
 
   return (
@@ -43,15 +39,20 @@ const Products = (props) => {
           }}
         >
           <div style={{ maxHeight: "8rem", maxWidth: "7rem" }}>
-            <Card.Img variant="top"height="280px" src={image} className="img-fluid" />
+            <Card.Img
+              variant="top"
+              height="280px"
+              src={image}
+              className="img-fluid"
+            />
           </div>
         </div>
         <CardContent>
           <Typography variant="h6">{name}</Typography>
-         
-          <Typography variant="h4"sx={{color:"#b71c1c"}}>
+
+          <Typography variant="h4" sx={{ color: "#b71c1c" }}>
             {" "}
-            <CurrencyRupeeIcon sx={{color:"#b71c1c"}} /> {price}
+            <CurrencyRupeeIcon sx={{ color: "#b71c1c" }} /> {price}
           </Typography>
 
           <Typography variant="body1">{unit}</Typography>

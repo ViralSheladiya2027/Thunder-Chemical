@@ -73,13 +73,13 @@ const Login = () => {
             p: "24px",
           }}
         >
-          <img src={logo} height="50px" alt="logo"/>
+          <img src={logo} height="50px" alt="logo" />
           <Typography align="left" variant="h5">
             Login
           </Typography>
           <TextField
             label="Email"
-            id="outlined-size-small"
+            // id="outlined-size-small"
             size="small"
             fullWidth
             margin="normal"
@@ -90,7 +90,7 @@ const Login = () => {
           />
           <TextField
             label="Password"
-            id="outlined-size-small"
+            // id="outlined-size-small"
             type={showPassword ? "text" : "password"}
             size="small"
             fullWidth
@@ -116,7 +116,11 @@ const Login = () => {
           <br />
           <Typography>
             Dont have an account to signup{" "}
-            <Link to="/signup" className="link">
+            <Link
+              to="/signup"
+              style={{ textDecoration: "none" }}
+              className="link"
+            >
               Here
             </Link>{" "}
           </Typography>

@@ -5,8 +5,8 @@ import SearchFilter from "react-filter-search";
 import Products from "../components/Products";
 import { db } from "./Firebase";
 
-const Home = ({searchProduct}) => {
-  // const [searchInput, setSearchInput] = useState("");
+const Home = () => {
+  // const [searchProduct, setSearchProduct] = useState("");
   // const [productData, setProductData] = useState([]);
   const [products, setProducts] = useState([])
   // const [data, setData] = useState([]);
@@ -18,6 +18,8 @@ const Home = ({searchProduct}) => {
     
   }, []);
 
+
+
   const getProducts = async () => {
     const data = await getDocs(empCollectionRef);
     setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
@@ -28,8 +30,7 @@ const Home = ({searchProduct}) => {
 
       <Container className="py-4">
         <Row className="justify-content-center">
-          {/* <Col xs={10} md={7} lg={6} xl={4} className="mb-3 mx-auto text-center"> */}
-          {/* <h2>Thunder Chemical</h2> */}
+          
 
           {/* </Col> */}
           {/* <div>
