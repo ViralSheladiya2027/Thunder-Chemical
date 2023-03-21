@@ -14,6 +14,7 @@ import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../logo/logo.png";
 import { auth, db } from "./Firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,7 +28,7 @@ const Signup = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   // const [user, setUser] = useState([])
-
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
@@ -67,20 +68,39 @@ const Signup = () => {
 
 
 
-    try {
-      await addDoc(collection(db, "user"), {
-        email: email,
-        address: address,
-        fullname: fullName,
-        mobilenumber: mobileNumber,
-        // userid:user.uid,
-      });
-    } catch (err) {
-      setErrorMsg(err.message);
-      setTimeout(() => {
-        setErrorMsg("");
-      }, 3000);
-    }
+    // try {
+    //   await addDoc(collection(db, "user"), {
+    //     email: email,
+    //     address: address,
+    //     fullname: fullName,
+    //     mobilenumber: mobileNumber,
+    //     // userid:user.uid,
+    //   });
+    // } catch (err) {
+    //   setErrorMsg(err.message);
+    //   setTimeout(() => {
+    //     setErrorMsg("");
+    //   }, 3000);
+    // }
+
+     
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+             addDoc(collection(db, "user"), {
+              email: email,
+              address: address,
+              fullname: fullName,
+              mobilenumber: mobileNumber,
+              userid:user.uid,
+            });
+            setUser(user)          
+          } else{
+             setUser(null)
+          }
+        });
+   
+      // return user;
+   
   };
 
   return (
