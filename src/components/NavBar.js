@@ -1,13 +1,14 @@
 import { AccountCircle } from "@mui/icons-material";
-import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   AppBar,
+  // Autocomplete,
   Badge,
   Box,
   IconButton,
   Menu,
   MenuItem,
+  // TextField,
   Toolbar,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
@@ -57,52 +58,9 @@ const NavBar = ({ user }) => {
                 style={{ marginRight: "15px" }}
               />
             </Link>
-            <div
-              // xs={10}
-              // md={7}
-              // lg={6}
-              // xl={4}
-              style={{
-                display: "flex",
-                flexgrow: "1",
-                alignItems: "center",
-                borderRadius: "none",
-                // paddingLeft: "130px",
-                // marginLeft:"5px"
-                margin: "auto",
-                padding: "auto",
-                width: "100%",
-              }}
-            >
-              <div>
-                <input
-                  type="text"
-                  value={searchProduct}
-                  onChange={(e) => setSearchProduct(e.target.value)}
-                  placeholder="Search...."
-                  style={{
-                    // width: "640px",
-                    width: "100%",
-                    height: "38px",
-                    paddingLeft: "15px",
-                    border: "none",
-                    outline: "none",
-                  }}
-                />
-              </div>
-              <div>
-                <SearchIcon
-                  size="small"
-                  style={{
-                    background: "#607d8b",
-                    color: "black",
-                    height: "40px",
-                    width: "38px",
-                  }}
-                />
-              </div>
-            </div>
-            {/* <div style={{bgcolor:"white"}}>{auth.email}</div> */}
+           
+              
+            {/* <div style={{bgcolor:"white"}}>{user.email}</div> */}
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -110,7 +68,7 @@ const NavBar = ({ user }) => {
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
-              sx={{ marginLeft: "auto" }}
+              sx={{ marginLeft: "auto",marginRight:"22px" }}
             >
               <AccountCircle />
             </IconButton>
@@ -130,27 +88,26 @@ const NavBar = ({ user }) => {
               onClose={handleClose}
             >
               {!user && (
-                <>
-                  <MenuItem onClick={handleClose}>
-                    {" "}
-                    <Link className="nav-link" to="/signup">
-                      Sign Up
-                    </Link>
-                  </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <Link className="nav-link" to="/login">
-                      Login
-                    </Link>
-                  </MenuItem>
-                </>
+                <MenuItem onClick={handleClose}>
+                  {" "}
+                  <Link className="nav-link" to="/signup">
+                    Sign Up
+                  </Link>
+                </MenuItem>
+              )}
+
+              {!user && (
+                <MenuItem onClick={handleClose}>
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                </MenuItem>
               )}
 
               {user && (
-                <>
-                  <MenuItem onClick={logOutClick} primary="Logout">
-                    Logout
-                  </MenuItem>
-                </>
+                <MenuItem onClick={logOutClick} primary="Logout">
+                  Logout
+                </MenuItem>
               )}
             </Menu>
 
