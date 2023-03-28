@@ -10,7 +10,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { addDoc, collection, getDocs } from "firebase/firestore";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../logo/logo.png";
 import { auth, db } from "./Firebase";
@@ -27,23 +27,12 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-  // const [user, setUser] = useState([])
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    console.log(email, password,fullName,address,mobileNumber);
-
-    // try {
-    //   await createUserWithEmailAndPassword(auth, email, password);
-    // } catch (err) {
-    //   console.error(err);
-    //   setErrorMsg(err.message);
-    //   setTimeout(() => {
-    //     setErrorMsg("");
-    //   }, 3000);
-    // }
+    console.log(email, password, fullName, address, mobileNumber);
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
@@ -66,41 +55,22 @@ const Signup = () => {
       }, 3000);
     }
 
-
-
-    // try {
-    //   await addDoc(collection(db, "user"), {
-    //     email: email,
-    //     address: address,
-    //     fullname: fullName,
-    //     mobilenumber: mobileNumber,
-    //     // userid:user.uid,
-    //   });
-    // } catch (err) {
-    //   setErrorMsg(err.message);
-    //   setTimeout(() => {
-    //     setErrorMsg("");
-    //   }, 3000);
-    // }
-
-     
-        onAuthStateChanged(auth, (user) => {
-          if (user) {
-             addDoc(collection(db, "user"), {
-              email: email,
-              address: address,
-              fullname: fullName,
-              mobilenumber: mobileNumber,
-              userid:user.uid,
-            });
-            setUser(user)          
-          } else{
-             setUser(null)
-          }
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        addDoc(collection(db, "user"), {
+          email: email,
+          address: address,
+          fullname: fullName,
+          mobilenumber: mobileNumber,
+          userid: user.uid,
         });
-   
-      // return user;
-   
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    // return user;
   };
 
   return (
@@ -138,7 +108,6 @@ const Signup = () => {
           </Typography>
           <TextField
             label="Full Name"
-            // id="outlined-size-small"
             size="small"
             fullWidth
             margin="normal"
@@ -149,7 +118,6 @@ const Signup = () => {
           />
           <TextField
             label="Email"
-            // id="outlined-size-small"
             size="small"
             fullWidth
             margin="normal"
@@ -159,21 +127,29 @@ const Signup = () => {
             onChange={(event) => setEmail(event.target.value)}
           />
           <TextField
-            //  style={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-            type="number"
+            inputProps={{
+              inputMode: "numeric",
+              pattern: "[1-9]{1}[0-9]{9}",
+              maxLength: 10,
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">+91</InputAdornment>
+              ),
+            }}
             label="Mobile Number"
-            // id="outlined-size-small"
             size="small"
             fullWidth
             margin="normal"
             padding="normal"
             required
             value={mobileNumber}
-            onChange={(event) => setMobileNumber(event.target.value)}
+            onChange={(event) => {
+              setMobileNumber(event.target.value);
+            }}
           />
           <TextField
             label="Password"
-            // id="outlined-size-small"
             type={showPassword ? "text" : "password"}
             size="small"
             fullWidth
@@ -190,7 +166,7 @@ const Signup = () => {
                     onClick={handleClickShowPasswordOne}
                     onMouseDown={handleMouseDownPassword}
                   >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -199,7 +175,6 @@ const Signup = () => {
 
           <TextField
             label="Address"
-            // id="outlined-size-small"
             size="small"
             multiline
             fullWidth

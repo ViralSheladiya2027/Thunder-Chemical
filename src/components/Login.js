@@ -79,7 +79,6 @@ const Login = () => {
           </Typography>
           <TextField
             label="Email"
-            // id="outlined-size-small"
             size="small"
             fullWidth
             margin="normal"
@@ -90,7 +89,6 @@ const Login = () => {
           />
           <TextField
             label="Password"
-            // id="outlined-size-small"
             type={showPassword ? "text" : "password"}
             size="small"
             fullWidth
@@ -107,7 +105,7 @@ const Login = () => {
                     onClick={handleClickShowPasswordOne}
                     onMouseDown={handleMouseDownPassword}
                   >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               ),
