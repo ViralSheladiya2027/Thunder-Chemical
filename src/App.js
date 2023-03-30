@@ -12,7 +12,7 @@ import { auth} from "./components/Firebase";
 import { Box } from '@mui/material';
 
 
- const App = () => {
+ const App = (fullName) => {
 
   function getCurrentUser() {
     const [user, setUser] = useState(null);
@@ -20,7 +20,7 @@ import { Box } from '@mui/material';
     useEffect(() => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          setUser(user)
+          setUser(user); 
         } else {
           setUser(null);
         }
@@ -34,12 +34,12 @@ import { Box } from '@mui/material';
     <>
   
       <Router>
-        <NavBar  user={user}/>
+        <NavBar  user={user} fullName={fullName}/>
         <Box height={50}/>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/cart" element={<Cart />} />
-          <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/signup" element={<Signup fullName={fullName}/>} />
           <Route exact path="/login" element={<Login />} />
         </Routes>
       </Router>

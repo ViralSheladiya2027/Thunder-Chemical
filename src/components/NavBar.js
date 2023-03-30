@@ -2,6 +2,7 @@ import { AccountCircle } from "@mui/icons-material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   AppBar,
+  Avatar,
   // Autocomplete,
   Badge,
   Box,
@@ -9,18 +10,16 @@ import {
   Menu,
   MenuItem,
   // TextField,
-  Toolbar,
+  Toolbar
 } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
 import logo from "../logo/logo.png";
 import { auth } from "./Firebase";
 
-const NavBar = ({ user }) => {
+const NavBar = ({ user,fullName }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [searchProduct, setSearchProduct] = useState("");
-  const [products, setProducts] = useState([]);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,13 +30,6 @@ const NavBar = ({ user }) => {
   };
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const newProducts = products.filter((value) =>
-      value.name.toLowerCase().includes(searchProduct.toLowerCase())
-    );
-    setProducts(newProducts);
-  }, [searchProduct]);
 
   const logOutClick = () => {
     auth.signOut();
@@ -60,7 +52,7 @@ const NavBar = ({ user }) => {
             </Link>
            
               
-            {/* <div style={{bgcolor:"white"}}>{user.email}</div> */}
+            <h5 style={{bgcolor:"red"}}>{auth.fullName}</h5>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -70,7 +62,8 @@ const NavBar = ({ user }) => {
               color="inherit"
               sx={{ marginLeft: "auto",marginRight:"22px" }}
             >
-              <AccountCircle />
+              {/* <AccountCircle /> */}
+              <Avatar sx={{ bgcolor:"#795548" }}>vs</Avatar>
             </IconButton>
             <Menu
               id="menu-appbar"

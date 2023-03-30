@@ -23,14 +23,13 @@ const Home = () => {
       <Container className="py-2">
         <Row className="justify-content-center">
           <div
-            position="fixed"
             style={{
               display: "flex",
               flexgrow: "1",
               alignItems: "center",
               borderRadius: "none",
               marginBottom: "20px",
-
+              // position: "fixed",
               width: "100%",
             }}
           >

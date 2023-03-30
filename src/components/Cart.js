@@ -1,5 +1,5 @@
-import { collection, getDocs } from "firebase/firestore";
-import React, { useEffect } from "react";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
@@ -27,12 +27,13 @@ const Cart = ({ closeEvent }) => {
     totalItems,
   } = useCart();
 
+  const [order, setOrder] = useState("")
   // const setRows = useStore((state) => state.setRows);
-  // const empCollectionRef = collection(db, "orders");
+  const orderCollectionRef = collection(db, "orders");
 
-  // useEffect(() => {
-  //   getUsers();
-  // }, []);
+  useEffect(() => {
+    getOrders();
+  }, []);
 
   // const userOrder = async (e) => {
   //   e.preventDefault();
@@ -66,15 +67,23 @@ const Cart = ({ closeEvent }) => {
   //     closeEvent();
   //   Swal.fire("submitted", "your order has been submitted", "success");
   // };
-  // const getUsers = async () => {
-  //   const data = await getDocs(empCollectionRef);
-  //   setRows(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  // };
+  const getOrders = async () => {
+    const data = await getDocs(orderCollectionRef);
+    setOrder(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
   const navigate = useNavigate();
 
-  const userOrder = () => {
+  const userOrder = async (item) => {
     // closeEvent();
-    Swal.fire("submitted", "your order has been submitted", "success");
+    
+      await addDoc(orderCollectionRef, {
+                  // image: downloadURL,
+                  name:item.name,
+                  price: Number(item.price),
+                  unit: item.unit,
+                });
+  
+    Swal.fire("submitted", "your order has been submitted ", "success");
     navigate("/");
     emptyCart();
   };
@@ -116,7 +125,7 @@ const Cart = ({ closeEvent }) => {
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Stack direction="row" spacing={2}>
                 <CardContent sx={{ flex: "1 0 auto" }}>
-                  <Typography component="div" variant="h6">
+                  <Typography component="div" variant="h6"sx={{fontWeight: 'bold'}}>
                     {item.name}
                   </Typography>
                   <Typography variant="h4">

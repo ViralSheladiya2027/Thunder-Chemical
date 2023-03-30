@@ -48,7 +48,7 @@ const Products = (props) => {
           </div>
         </div>
         <CardContent>
-          <Typography variant="h6">{name}</Typography>
+          <Typography variant="h6" sx={{fontWeight: 'bold'}} >{name}</Typography>
 
           <Typography variant="h4" sx={{ color: "#b71c1c" }}>
             {" "}
