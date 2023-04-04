@@ -38,7 +38,7 @@ import { Box } from '@mui/material';
         <Box height={50}/>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/cart" element={<Cart />} />
+          <Route exact path="/cart" element={<Cart user={user}/>} />
           <Route exact path="/signup" element={<Signup fullName={fullName}/>} />
           <Route exact path="/login" element={<Login />} />
         </Routes>

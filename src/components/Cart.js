@@ -16,7 +16,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { useStore } from "../Store";
 
-const Cart = ({ closeEvent }) => {
+const Cart = ({user}) => {
   const {
     isEmpty,
     items,
@@ -27,62 +27,41 @@ const Cart = ({ closeEvent }) => {
     totalItems,
   } = useCart();
 
-  const [order, setOrder] = useState("")
+  const [order, setOrder] = useState("");
   // const setRows = useStore((state) => state.setRows);
-  const orderCollectionRef = collection(db, "orders");
+  const orderCollectionRef = collection(db,`user/userid/${user.id}/order`);
 
   useEffect(() => {
     getOrders();
   }, []);
 
-  // const userOrder = async (e) => {
-  //   e.preventDefault();
-  //   if (image === null) return;
-  //   const storageRef = ref(storage, `images/${image.name}`);
-  //   const uploadTask = uploadBytesResumable(storageRef, image);
-  //   uploadTask.on(
-  //     "state_changed",
-  //     (snapshot) => {
-  //       const progress = Math.round(
-  //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-  //       );
-  //     },
-  //     (error) => {
-  //       alert(error);
-  //     },
-  //     () => {
-  //       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-  //         addDoc(empCollectionRef, {
-  //           image: downloadURL,
-  //           name: name,
-  //           price: Number(price),
-  //           unit: unit,
-  //         });
-  //         console.log("URL::" + downloadURL);
-  //       });
-  //     }
-  //   );
-
-  //   getUsers();
-  //     closeEvent();
-  //   Swal.fire("submitted", "your order has been submitted", "success");
-  // };
   const getOrders = async () => {
+    // const orderCollectionRef = collection(db,"users",userId,"order")
+    // const result = await getDocs(orderCollectionRef);
+    // return result;
     const data = await getDocs(orderCollectionRef);
     setOrder(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
   const navigate = useNavigate();
 
-  const userOrder = async (item) => {
-    // closeEvent();
-    
-      await addDoc(orderCollectionRef, {
-                  // image: downloadURL,
-                  name:item.name,
-                  price: Number(item.price),
-                  unit: item.unit,
-                });
-  
+  const userOrder = async () => {
+    {
+      items.map((item) => {
+        // if (user) {
+        addDoc(orderCollectionRef, {
+         
+          name: item.name,
+          unit: item.unit,
+          price: item.price,
+          cartTotal: cartTotal,
+          totalItems: totalItems,
+          userid:user.uid
+       });
+      // }
+      });
+    }
+
+    getOrders();
     Swal.fire("submitted", "your order has been submitted ", "success");
     navigate("/");
     emptyCart();
@@ -125,14 +104,20 @@ const Cart = ({ closeEvent }) => {
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Stack direction="row" spacing={2}>
                 <CardContent sx={{ flex: "1 0 auto" }}>
-                  <Typography component="div" variant="h6"sx={{fontWeight: 'bold'}}>
+                  <Typography
+                    component="div"
+                    variant="h6"
+                    sx={{ fontWeight: "bold" }}
+                  >
                     {item.name}
                   </Typography>
                   <Typography variant="h4">
                     <CurrencyRupeeIcon /> {item.price}
                   </Typography>
                   <Typography variant="body1">{item.unit}</Typography>
-                  <Typography sx={{width:"150px"}} variant="body1">{item.description}</Typography>
+                  <Typography sx={{ width: "150px" }} variant="body1">
+                    {item.description}
+                  </Typography>
                 </CardContent>
                 <Box sx={{ maxHeight: "4rem", maxWidth: "5rem" }}>
                   <CardMedia
