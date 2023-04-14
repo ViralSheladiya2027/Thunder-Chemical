@@ -1,4 +1,4 @@
-import { AccountCircle } from "@mui/icons-material";
+// import { AccountCircle } from "@mui/icons-material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   AppBar,
@@ -18,9 +18,8 @@ import { useCart } from "react-use-cart";
 import logo from "../logo/logo.png";
 import { auth } from "./Firebase";
 
-const NavBar = ({ user,fullName }) => {
+const NavBar = ({user,fullName}) => {
   const [anchorEl, setAnchorEl] = useState(null);
-
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -50,9 +49,8 @@ const NavBar = ({ user,fullName }) => {
                 style={{ marginRight: "15px" }}
               />
             </Link>
-           
-              
-            <h5 style={{bgcolor:"red"}}>{auth.fullName}</h5>
+            {/* <div>{user.email}</div> */}
+            {/* <span style={{bgcolor:"red"}}>{user.fullName}</span> */}
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -63,7 +61,8 @@ const NavBar = ({ user,fullName }) => {
               sx={{ marginLeft: "auto",marginRight:"22px" }}
             >
               {/* <AccountCircle /> */}
-              <Avatar sx={{ bgcolor:"#795548" }}>vs</Avatar>
+              {/* <Avatar sx={{ bgcolor:"#795548" }}> {user.fullName.charAt(0)+" "}</Avatar> */}
+              <Avatar  sx={{ bgcolor:"#795548" }}/>
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -98,10 +97,13 @@ const NavBar = ({ user,fullName }) => {
               )}
 
               {user && (
+
                 <MenuItem onClick={logOutClick} primary="Logout">
                   Logout
                 </MenuItem>
               )}
+               
+
             </Menu>
 
             <Link className="nav-link" to="/cart">

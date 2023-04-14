@@ -64,6 +64,7 @@ const Login = () => {
 
       <Container maxWidth="xs">
         <Box
+         component="form"
           sx={{
             borderRadius: "10px",
             backgroundColor: "white",

@@ -12,11 +12,12 @@ import { auth} from "./components/Firebase";
 import { Box } from '@mui/material';
 
 
- const App = (fullName) => {
+ const App = () => {
+ // eslint-disable-next-line
+  const [fullName, setFullName] = useState("");
 
   function getCurrentUser() {
     const [user, setUser] = useState(null);
-
     useEffect(() => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -39,7 +40,7 @@ import { Box } from '@mui/material';
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/cart" element={<Cart user={user}/>} />
-          <Route exact path="/signup" element={<Signup fullName={fullName}/>} />
+          <Route exact path="/signup" element={<Signup  fullName={fullName} />} />
           <Route exact path="/login" element={<Login />} />
         </Routes>
       </Router>

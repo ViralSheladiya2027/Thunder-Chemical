@@ -16,8 +16,7 @@ const Products = (props) => {
   };
 
   const buyNow = () => {
-    console.log(props.data);
-
+    addItem(props.data);
     navigate("/cart");
   };
 
@@ -48,7 +47,9 @@ const Products = (props) => {
           </div>
         </div>
         <CardContent>
-          <Typography variant="h6" sx={{fontWeight: 'bold'}} >{name}</Typography>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            {name}
+          </Typography>
 
           <Typography variant="h4" sx={{ color: "#b71c1c" }}>
             {" "}
@@ -58,15 +59,11 @@ const Products = (props) => {
           <Typography variant="body1">{unit}</Typography>
 
           <Typography variant="body1">{description}</Typography>
-          <Rating
-            name="read-only"
-            size="small"
-            value={4.3}
-            // sx={{fontSize:"220px"}}
-            readOnly
-          >
-            {rating}
-          </Rating>
+          <Typography variant="subtitle1" sx={{color:"#607d8b"}} >
+            <Rating name="read-only" size="small" value={rating} readOnly />
+            {" "} {rating}
+          </Typography>
+
           <Stack direction="column" spacing={1}>
             <Button
               variant="contained"

@@ -1,11 +1,3 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { useCart } from "react-use-cart";
-import Swal from "sweetalert2";
-import { db } from "./Firebase";
-
 import AddIcon from "@mui/icons-material/Add";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -14,9 +6,15 @@ import { Box, Stack, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { useStore } from "../Store";
+import { addDoc, collection } from "firebase/firestore";
+import React from "react";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "react-use-cart";
+import Swal from "sweetalert2";
+import { db } from "./Firebase";
 
-const Cart = ({user}) => {
+const Cart = ({ user }) => {
   const {
     isEmpty,
     items,
@@ -27,44 +25,44 @@ const Cart = ({user}) => {
     totalItems,
   } = useCart();
 
-  const [order, setOrder] = useState("");
+  // const [order, setOrder] = useState("");
   // const setRows = useStore((state) => state.setRows);
-  const orderCollectionRef = collection(db,`user/userid/${user.id}/order`);
+  const orderCollectionRef = collection(db, "orders");
 
-  useEffect(() => {
-    getOrders();
-  }, []);
+  // useEffect(() => {
+  //   getOrders();
+  // }, []);
 
-  const getOrders = async () => {
-    // const orderCollectionRef = collection(db,"users",userId,"order")
-    // const result = await getDocs(orderCollectionRef);
-    // return result;
-    const data = await getDocs(orderCollectionRef);
-    setOrder(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  };
+  // const getOrders = async () => {
+  //   const data = await getDocs(orderCollectionRef);
+  //   setOrder(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  // };
   const navigate = useNavigate();
 
   const userOrder = async () => {
-    {
+    if (!user) {
+      console.log("no user");
+      navigate("/signup");
+    } else {
       items.map((item) => {
-        // if (user) {
+        return(
         addDoc(orderCollectionRef, {
-         
           name: item.name,
           unit: item.unit,
           price: item.price,
           cartTotal: cartTotal,
           totalItems: totalItems,
-          userid:user.uid
-       });
-      // }
+          userid: user.uid,
+        })
+        )
       });
-    }
+  
 
-    getOrders();
+    // getOrders();
     Swal.fire("submitted", "your order has been submitted ", "success");
     navigate("/");
     emptyCart();
+  }
   };
 
   return (

@@ -7,14 +7,13 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
+  onAuthStateChanged,
 } from "firebase/auth";
-import { addDoc, collection, getDocs } from "firebase/firestore";
-import React, { useState, useEffect } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../logo/logo.png";
 import { auth, db } from "./Firebase";
-import { onAuthStateChanged } from "firebase/auth";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -70,7 +69,7 @@ const Signup = () => {
       }
     });
 
-    // return user;
+    return user;
   };
 
   return (
@@ -93,6 +92,8 @@ const Signup = () => {
 
       <Container maxWidth="xs">
         <Box
+          component="form"
+          autoComplete="off"
           sx={{
             borderRadius: "10px",
             backgroundColor: "white",
@@ -132,6 +133,7 @@ const Signup = () => {
               pattern: "[1-9]{1}[0-9]{9}",
               maxLength: 10,
             }}
+            // eslint-disable-next-line
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">+91</InputAdornment>
