@@ -18,7 +18,7 @@ import { useCart } from "react-use-cart";
 import logo from "../logo/logo.png";
 import { auth } from "./Firebase";
 
-const NavBar = ({user,fullName}) => {
+const NavBar = ({user,email}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -49,8 +49,8 @@ const NavBar = ({user,fullName}) => {
                 style={{ marginRight: "15px" }}
               />
             </Link>
-            {/* <div>{user.email}</div> */}
-            {/* <span style={{bgcolor:"red"}}>{user.fullName}</span> */}
+            <div>{email}</div>
+            {/* <span style={{bgcolor:"red"}}>{auth.user.fullName}</span> */}
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -61,7 +61,7 @@ const NavBar = ({user,fullName}) => {
               sx={{ marginLeft: "auto",marginRight:"22px" }}
             >
               {/* <AccountCircle /> */}
-              {/* <Avatar sx={{ bgcolor:"#795548" }}> {user.fullName.charAt(0)+" "}</Avatar> */}
+              {/* <Avatar sx={{ bgcolor:"#795548" }}> {user.email.charAt(0)+" "}</Avatar> */}
               <Avatar  sx={{ bgcolor:"#795548" }}/>
             </IconButton>
             <Menu

@@ -59,9 +59,9 @@ const Products = (props) => {
           <Typography variant="body1">{unit}</Typography>
 
           <Typography variant="body1">{description}</Typography>
-          <Typography variant="subtitle1" sx={{color:"#607d8b"}} >
-            <Rating name="read-only" size="small" value={rating} readOnly />
-            {" "} {rating}
+          <Typography variant="subtitle1" sx={{ color: "#607d8b" }}>
+            <Rating name="read-only" size="small" value={rating} readOnly /> ({" "}
+            {rating} review)
           </Typography>
 
           <Stack direction="column" spacing={1}>

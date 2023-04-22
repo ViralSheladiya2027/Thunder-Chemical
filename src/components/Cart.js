@@ -28,6 +28,7 @@ const Cart = ({ user }) => {
   // const [order, setOrder] = useState("");
   // const setRows = useStore((state) => state.setRows);
   const orderCollectionRef = collection(db, "orders");
+  
 
   // useEffect(() => {
   //   getOrders();
@@ -45,6 +46,7 @@ const Cart = ({ user }) => {
       navigate("/signup");
     } else {
       items.map((item) => {
+        // if(totalItems>1)
         return(
         addDoc(orderCollectionRef, {
           name: item.name,

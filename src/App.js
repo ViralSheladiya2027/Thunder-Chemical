@@ -14,7 +14,7 @@ import { Box } from '@mui/material';
 
  const App = () => {
  // eslint-disable-next-line
-  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
 
   function getCurrentUser() {
     const [user, setUser] = useState(null);
@@ -35,12 +35,12 @@ import { Box } from '@mui/material';
     <>
   
       <Router>
-        <NavBar  user={user} fullName={fullName}/>
+        <NavBar  user={user} email={email}/>
         <Box height={50}/>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/cart" element={<Cart user={user}/>} />
-          <Route exact path="/signup" element={<Signup  fullName={fullName} />} />
+          <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/login" element={<Login />} />
         </Routes>
       </Router>
