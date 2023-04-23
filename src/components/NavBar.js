@@ -1,16 +1,13 @@
-// import { AccountCircle } from "@mui/icons-material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   AppBar,
   Avatar,
-  // Autocomplete,
   Badge,
   Box,
   IconButton,
   Menu,
   MenuItem,
-  // TextField,
-  Toolbar
+  Toolbar,
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,7 +15,7 @@ import { useCart } from "react-use-cart";
 import logo from "../logo/logo.png";
 import { auth } from "./Firebase";
 
-const NavBar = ({user,email}) => {
+const NavBar = ({ user, email }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -49,8 +46,6 @@ const NavBar = ({user,email}) => {
                 style={{ marginRight: "15px" }}
               />
             </Link>
-            <div>{email}</div>
-            {/* <span style={{bgcolor:"red"}}>{auth.user.fullName}</span> */}
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -58,11 +53,16 @@ const NavBar = ({user,email}) => {
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
-              sx={{ marginLeft: "auto",marginRight:"22px" }}
+              sx={{ marginLeft: "auto", marginRight: "22px" }}
             >
-              {/* <AccountCircle /> */}
-              {/* <Avatar sx={{ bgcolor:"#795548" }}> {user.email.charAt(0)+" "}</Avatar> */}
-              <Avatar  sx={{ bgcolor:"#795548" }}/>
+              <Avatar sx={{ bgcolor: "#795548" }}>
+                {" "}
+                {email ? (
+                  email.charAt(0).toUpperCase() + " "
+                ) : (
+                  <Avatar sx={{ bgcolor: "#795548" }} />
+                )}
+              </Avatar>
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -97,13 +97,10 @@ const NavBar = ({user,email}) => {
               )}
 
               {user && (
-
                 <MenuItem onClick={logOutClick} primary="Logout">
                   Logout
                 </MenuItem>
               )}
-               
-
             </Menu>
 
             <Link className="nav-link" to="/cart">
