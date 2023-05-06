@@ -1,7 +1,7 @@
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import Alert from "@mui/material/Alert";
+// import Alert from "@mui/material/Alert";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -10,6 +10,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../logo/logo.png";
 import { auth } from "./Firebase";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,8 +19,8 @@ const Login = () => {
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
+  // const [errorMsg, setErrorMsg] = useState("");
+  // const [successMsg, setSuccessMsg] = useState("");
 
   const navigate = useNavigate();
 
@@ -28,25 +30,33 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      setSuccessMsg("login success");
+      // setSuccessMsg("login success");
+      toast.success("Login succesfully!", {
+        position: "top-center",
+        theme: "colored",
+      });
       setEmail("");
       setPassword("");
-      setTimeout(() => {
-        setSuccessMsg("");
+      // setTimeout(() => {
+      //   setSuccessMsg("");
         navigate("/");
-      }, 3000);
+      // }, 3000);
     } catch (err) {
       // console.error(err);
-      setErrorMsg(err.message);
-      setTimeout(() => {
-        setErrorMsg("");
-      }, 3000);
+      // setErrorMsg(err.message);
+      // setTimeout(() => {
+      //   setErrorMsg("");
+      // }, 3000);
+      toast.error(err.message, {
+        position: "top-center",
+        theme: "colored",
+      });
     }
   };
 
   return (
     <>
-      {successMsg && (
+      {/* {successMsg && (
         <>
           <Alert variant="filled" severity="success">
             {successMsg}
@@ -60,7 +70,7 @@ const Login = () => {
             {errorMsg}
           </Alert>
         </>
-      )}
+      )} */}
 
       <Container maxWidth="xs">
         <Box

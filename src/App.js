@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./components/Firebase";
 import { Box } from "@mui/material";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const [email, setEmail] = useState("");
@@ -44,6 +45,7 @@ const App = () => {
           <Route exact path="/login" element={<Login />} />
         </Routes>
       </Router>
+      <ToastContainer />
     </>
   );
 };

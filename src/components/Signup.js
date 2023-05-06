@@ -1,7 +1,7 @@
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import Alert from "@mui/material/Alert";
+// import Alert from "@mui/material/Alert";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -14,6 +14,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../logo/logo.png";
 import { auth, db } from "./Firebase";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,8 +26,8 @@ const Signup = () => {
   const [address, setAddress] = useState("");
   const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
+  // const [errorMsg, setErrorMsg] = useState("");
+  // const [successMsg, setSuccessMsg] = useState("");
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -35,23 +37,31 @@ const Signup = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      setSuccessMsg("signup success");
+      // setSuccessMsg("signup success");
+      toast.success("Signup succesfully!", {
+        position: "top-center",
+        theme: "colored",
+      });
       setEmail("");
       setFullName("");
       setPassword("");
       setAddress("");
       setMobileNumber("");
       setAddress("");
-      setTimeout(() => {
-        setSuccessMsg("");
+      // setTimeout(() => {
+        // setSuccessMsg("");
         navigate("/login");
-      }, 3000);
+      // }, 3000);
     } catch (err) {
       // console.error(err);
-      setErrorMsg(err.message);
-      setTimeout(() => {
-        setErrorMsg("");
-      }, 3000);
+      // setErrorMsg(err.message);
+      toast.error(err.message, {
+        position: "top-center",
+        theme: "colored",
+      });
+      // setTimeout(() => {
+      //   setErrorMsg("");
+      // }, 3000);
     }
 
     onAuthStateChanged(auth, (user) => {
@@ -74,7 +84,7 @@ const Signup = () => {
 
   return (
     <>
-      {successMsg && (
+      {/* {successMsg && (
         <>
           <Alert variant="filled" severity="success">
             {successMsg}
@@ -88,7 +98,7 @@ const Signup = () => {
             {errorMsg}
           </Alert>
         </>
-      )}
+      )} */}
 
       <Container maxWidth="xs">
         <Box

@@ -5,6 +5,8 @@ import { Card } from "react-bootstrap";
 import { BsCartPlus } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Products = (props) => {
   let { name, image, price, unit, rating, description } = props.data;
@@ -13,6 +15,10 @@ const Products = (props) => {
   const navigate = useNavigate();
   const addToCart = () => {
     addItem(props.data);
+    toast.success("add to cart succesfully", {
+      position: "top-center",
+      theme: "colored",
+    });
   };
 
   const buyNow = () => {

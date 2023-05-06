@@ -14,6 +14,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
 import logo from "../logo/logo.png";
 import { auth } from "./Firebase";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NavBar = ({ user, email }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -29,12 +31,22 @@ const NavBar = ({ user, email }) => {
 
   const logOutClick = () => {
     auth.signOut();
+    toast.success("Your account has been logout", {
+      position: "top-center",
+      theme: "colored",
+    });
     navigate("/signup");
   };
   const { totalItems } = useCart();
 
   return (
     <>
+      {/* {!user && (
+       toast("Login to your account", {
+        position: "top-center",
+        theme: "colored",
+      })
+    )} */}
       <Box sx={{ flexgrow: "1", height: "18px" }}>
         <AppBar position="fixed" style={{ background: "#263238" }}>
           <Toolbar>
