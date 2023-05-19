@@ -35,6 +35,8 @@ const Signup = () => {
     e.preventDefault();
     console.log(email, password, fullName, address, mobileNumber);
 
+    const currentDate = new Date();
+
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       // setSuccessMsg("signup success");
@@ -72,6 +74,7 @@ const Signup = () => {
           fullname: fullName,
           mobilenumber: mobileNumber,
           userid: user.uid,
+          date:currentDate,
         });
         setUser(user);
       } else {

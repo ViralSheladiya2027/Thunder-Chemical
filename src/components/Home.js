@@ -4,6 +4,7 @@ import { Container, Row } from "react-bootstrap";
 import Products from "../components/Products";
 import { db } from "./Firebase";
 import SearchIcon from "@mui/icons-material/Search";
+// import background from "../logo/background.png";
 
 const Home = () => {
   const [searchProduct, setSearchProduct] = useState("");
@@ -20,7 +21,12 @@ const Home = () => {
   };
   return (
     <>
-      <Container className="py-2">
+    {/* <div className="bgcolor"> */}
+      {/* <Container>
+
+        <img src={background} alt="" />
+      </Container> */}
+      <Container className=" py-2">
         <Row className="justify-content-center">
           <div
             style={{
@@ -71,6 +77,7 @@ const Home = () => {
             ))}
         </Row>
       </Container>
+      {/* </div> */}
     </>
   );
 };

@@ -17,6 +17,7 @@ import { auth } from "./Firebase";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const NavBar = ({ user, email }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleMenu = (event) => {
@@ -43,8 +44,11 @@ const NavBar = ({ user, email }) => {
     <>
       {/* {!user && (
        toast("Login to your account", {
-        position: "top-center",
+        position: "bottom-center",
         theme: "colored",
+        autoClose: false,
+        theme: "dark",
+        progress: undefined,
       })
     )} */}
       <Box sx={{ flexgrow: "1", height: "18px" }}>
@@ -123,6 +127,10 @@ const NavBar = ({ user, email }) => {
           </Toolbar>
         </AppBar>
       </Box>
+
+      {/* <div style={{position:"relative" }}>
+        <img src ={background} alt =""/>
+      </div> */}
     </>
   );
 };

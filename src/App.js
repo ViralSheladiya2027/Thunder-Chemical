@@ -21,7 +21,6 @@ const App = () => {
         if (user) {
           setUser(user);
           setEmail(user.email);
-          console.log("mail::" + email);
         } else {
           setUser(null);
           setEmail("");
@@ -31,7 +30,6 @@ const App = () => {
     return user;
   }
   const user = getCurrentUser();
-  console.log("mail2::" + email);
 
   return (
     <>

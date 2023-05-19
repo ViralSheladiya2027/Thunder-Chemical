@@ -7,7 +7,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { addDoc, collection } from "firebase/firestore";
-import React from "react";
+import React ,{useState} from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
@@ -29,11 +29,17 @@ const Cart = ({ user }) => {
   // const setRows = useStore((state) => state.setRows);
   const orderCollectionRef = collection(db, "orders");
   
-
+  // const [curr , setCurr] = useState('');
+    
+  // // Function to get time and date
+  // const getDate = () => {
+  //     const a = db.Timestamp.now().toDate().toString();
+  //     setCurr(a);
+  // }
+  const currentDate = new Date();
   // useEffect(() => {
   //   getOrders();
   // }, []);
-
   // const getOrders = async () => {
   //   const data = await getDocs(orderCollectionRef);
   //   setOrder(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
@@ -55,13 +61,14 @@ const Cart = ({ user }) => {
           cartTotal: cartTotal,
           totalItems: totalItems,
           userid: user.uid,
+          date:currentDate
         })
         )
       });
   
 
     // getOrders();
-    Swal.fire("submitted", "your order has been submitted ", "success");
+    Swal.fire("submitted", "your order has been submitted.. You will receive a confirmation call for your order within 1 to 3 days", "success");
     navigate("/");
     emptyCart();
   }

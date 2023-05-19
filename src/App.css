@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 } */
+.bgcolor{
+  min-height: 100vh;
+  min-width: 80rem;
+  background: #ececec;
+  background: linear-gradient(158deg,rgb(224,224,224)0%, rgb(233,237,254)100%);
+}
