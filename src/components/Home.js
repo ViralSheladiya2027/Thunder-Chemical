@@ -46,7 +46,7 @@ const Home = () => {
                 onChange={(e) => setSearchProduct(e.target.value)}
                 placeholder="Search Thunder Chemical ......"
                 style={{
-                  width: "540px",
+                  width: "300px",
                   height: "38px",
                   paddingLeft: "15px",
                   border: "1px solid black",

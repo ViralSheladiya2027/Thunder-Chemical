@@ -6,8 +6,8 @@ import { Box, Stack, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { addDoc, collection } from "firebase/firestore";
-import React ,{useState} from "react";
+import { addDoc, collection,setDoc,doc } from "firebase/firestore";
+import React from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
@@ -25,17 +25,10 @@ const Cart = ({ user }) => {
     totalItems,
   } = useCart();
 
-  // const [order, setOrder] = useState("");
-  // const setRows = useStore((state) => state.setRows);
-  const orderCollectionRef = collection(db, "orders");
+ 
+  // const orderCollectionRef = collection(db, "orders");
+
   
-  // const [curr , setCurr] = useState('');
-    
-  // // Function to get time and date
-  // const getDate = () => {
-  //     const a = db.Timestamp.now().toDate().toString();
-  //     setCurr(a);
-  // }
   const currentDate = new Date();
   // useEffect(() => {
   //   getOrders();
@@ -47,37 +40,66 @@ const Cart = ({ user }) => {
   const navigate = useNavigate();
 
   const userOrder = async () => {
-    if (!user) {
-      console.log("no user");
-      navigate("/signup");
-    } else {
-      items.map((item) => {
-        // if(totalItems>1)
-        return(
-        addDoc(orderCollectionRef, {
-          name: item.name,
+    // if (!user) {
+    //   console.log("no user");
+    //   navigate("/signup");
+    // } else {
+    //   items.map((item) => {
+    //     // if(totalItems>1)
+    //     return addDoc(orderCollectionRef, {
+    //       name: item.name,
+    //       unit: item.unit,
+    //       price: item.price,
+    //       cartTotal: cartTotal,
+    //       totalItems: totalItems,
+    //       userid: user.uid,
+    //       date: currentDate,
+    //     });
+    //   });
+
+    try { 
+      items.map( async (item) =>{
+      // Create a new order document in the orders collection
+      const orderDocRef = await addDoc(collection(db, 'orders'), {
+       
+                 name: item.name,
           unit: item.unit,
           price: item.price,
-          cartTotal: cartTotal,
-          totalItems: totalItems,
-          userid: user.uid,
-          date:currentDate
-        })
-        )
+        cartTotal: cartTotal,
+        totalItems: totalItems,
+        date: currentDate,
+     
+      });
+
+      const userOrdersRef = doc(db, 'user', user.uid, 'orders', orderDocRef.id);
+  
+      await setDoc(userOrdersRef, {
+        items: items,
+        cartTotal: cartTotal,
+        totalItems: totalItems,
+        date: currentDate,
       });
   
-
-    // getOrders();
-    Swal.fire("submitted", "your order has been submitted.. You will receive a confirmation call for your order within 1 to 3 days", "success");
-    navigate("/");
-    emptyCart();
-  }
+      console.log('Order saved successfully!');
+    });
+    } catch (error) {
+      console.error('Error saving order:', error);
+    }
+      
+      Swal.fire(
+        "submitted",
+        "your order has been submitted... You will receive a confirmation call for your order within 1 to 3 days",
+        "success"
+      );
+      navigate("/");
+      emptyCart();
+    // }
   };
 
   return (
     <>
       <h1 className=" my-5 text-center">
-        {isEmpty ? "Your Cart is Empty" : "The Cart"}
+        {isEmpty ? "Your Cart is Empty" : ""}
       </h1>
       {!isEmpty && (
         <Stack spacing={1} direction="column">
@@ -91,7 +113,8 @@ const Cart = ({ user }) => {
             onClick={userOrder}
           >
             {" "}
-            Proceed to Buy your ({totalItems} items){" "}
+            Proceed to Buy your ({totalItems}{" "}
+            {totalItems === 1 ? "item" : "items"}){" "}
           </Button>
         </Stack>
       )}
