@@ -6,7 +6,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { addDoc, collection,setDoc,doc } from "firebase/firestore";
+import { addDoc, collection, setDoc, doc } from "firebase/firestore";
 import React from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -25,10 +25,8 @@ const Cart = ({ user }) => {
     totalItems,
   } = useCart();
 
- 
-  // const orderCollectionRef = collection(db, "orders");
+  const orderCollectionRef = collection(db, "orders");
 
-  
   const currentDate = new Date();
   // useEffect(() => {
   //   getOrders();
@@ -40,52 +38,59 @@ const Cart = ({ user }) => {
   const navigate = useNavigate();
 
   const userOrder = async () => {
-    // if (!user) {
-    //   console.log("no user");
-    //   navigate("/signup");
-    // } else {
-    //   items.map((item) => {
-    //     // if(totalItems>1)
-    //     return addDoc(orderCollectionRef, {
-    //       name: item.name,
-    //       unit: item.unit,
-    //       price: item.price,
-    //       cartTotal: cartTotal,
-    //       totalItems: totalItems,
-    //       userid: user.uid,
-    //       date: currentDate,
-    //     });
-    //   });
+    if (!user) {
+      console.log("no user");
+      navigate("/signup");
+    } else {
+      //   items.map((item) => {
 
-    try { 
-      items.map( async (item) =>{
-      // Create a new order document in the orders collection
-      const orderDocRef = await addDoc(collection(db, 'orders'), {
-       
-                 name: item.name,
-          unit: item.unit,
-          price: item.price,
+      return addDoc(orderCollectionRef, {
+        //   name: item.name,
+        //   unit: item.unit,
+        //   price: item.price,
         cartTotal: cartTotal,
-        totalItems: totalItems,
-        date: currentDate,
-     
-      });
-
-      const userOrdersRef = doc(db, 'user', user.uid, 'orders', orderDocRef.id);
-  
-      await setDoc(userOrdersRef, {
         items: items,
-        cartTotal: cartTotal,
         totalItems: totalItems,
+        userid: user.uid,
         date: currentDate,
       });
-  
-      console.log('Order saved successfully!');
-    });
-    } catch (error) {
-      console.error('Error saving order:', error);
+      //   });
     }
-      
+      // try {
+      //   items.map( async (item) =>{
+      //   // Create a new order document in the orders collection
+      //   const orderDocRef = await addDoc(collection(db, 'orders'), {
+
+      //              name: item.name,
+      //       unit: item.unit,
+      //       price: item.price,
+      //     cartTotal: cartTotal,
+      //     totalItems: totalItems,
+      //     date: currentDate,
+
+      //   });
+
+      //    const uOrdersRef = doc(db, 'user', user.uid);
+
+      //   await setDoc(uOrdersRef, {
+      //     "ID":user.uid
+      //   });
+
+      //   const userOrdersRef = doc(db, 'user', user.uid, 'orders', orderDocRef.id);
+
+      //   await setDoc(userOrdersRef, {
+      //     items: items,
+      //     cartTotal: cartTotal,
+      //     totalItems: totalItems,
+      //     date: currentDate,
+      //   });
+
+      //   console.log('Order saved successfully!');
+      // });
+      // } catch (error) {
+      //   console.error('Error saving order:', error);
+      // }
+
       Swal.fire(
         "submitted",
         "your order has been submitted... You will receive a confirmation call for your order within 1 to 3 days",
@@ -93,7 +98,7 @@ const Cart = ({ user }) => {
       );
       navigate("/");
       emptyCart();
-    // }
+   
   };
 
   return (
