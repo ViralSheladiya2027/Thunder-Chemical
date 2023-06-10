@@ -9,7 +9,7 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection,setDoc ,doc} from "firebase/firestore";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../logo/logo.png";
@@ -68,7 +68,10 @@ const Signup = () => {
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        addDoc(collection(db, "user"), {
+        const userCollectionRef = collection(db, "user");
+      const userDocRef = doc(userCollectionRef, user.uid);
+
+      return setDoc(userDocRef, {
           email: email,
           address: address,
           fullname: fullName,
@@ -76,7 +79,7 @@ const Signup = () => {
           userid: user.uid,
           date:currentDate,
         });
-        setUser(user);
+        // setUser(user);
       } else {
         setUser(null);
       }

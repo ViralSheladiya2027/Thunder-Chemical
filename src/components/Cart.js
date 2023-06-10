@@ -25,7 +25,7 @@ const Cart = ({ user }) => {
     totalItems,
   } = useCart();
 
-  const orderCollectionRef = collection(db, "orders");
+  
 
   const currentDate = new Date();
   // useEffect(() => {
@@ -42,63 +42,68 @@ const Cart = ({ user }) => {
       console.log("no user");
       navigate("/signup");
     } else {
-      //   items.map((item) => {
+      
+      const orderCollectionRef = collection(db, "orders");
+      const orderDocRef = doc(orderCollectionRef, user.uid);
 
-      return addDoc(orderCollectionRef, {
-        //   name: item.name,
-        //   unit: item.unit,
-        //   price: item.price,
+      return setDoc(orderDocRef, {
         cartTotal: cartTotal,
         items: items,
         totalItems: totalItems,
         userid: user.uid,
         date: currentDate,
+      }).then(() => {
+        Swal.fire(
+          "submitted",
+          "your order has been submitted... You will receive a confirmation call for your order within 1 to 3 days",
+          "success"
+        );
+        navigate("/");
+        emptyCart();
       });
-      //   });
     }
-      // try {
-      //   items.map( async (item) =>{
-      //   // Create a new order document in the orders collection
-      //   const orderDocRef = await addDoc(collection(db, 'orders'), {
+    // try {
+    //   items.map( async (item) =>{
+    //   // Create a new order document in the orders collection
+    //   const orderDocRef = await addDoc(collection(db, 'orders'), {
 
-      //              name: item.name,
-      //       unit: item.unit,
-      //       price: item.price,
-      //     cartTotal: cartTotal,
-      //     totalItems: totalItems,
-      //     date: currentDate,
+    //              name: item.name,
+    //       unit: item.unit,
+    //       price: item.price,
+    //     cartTotal: cartTotal,
+    //     totalItems: totalItems,
+    //     date: currentDate,
 
-      //   });
+    //   });
 
-      //    const uOrdersRef = doc(db, 'user', user.uid);
+    //    const uOrdersRef = doc(db, 'user', user.uid);
 
-      //   await setDoc(uOrdersRef, {
-      //     "ID":user.uid
-      //   });
+    //   await setDoc(uOrdersRef, {
+    //     "ID":user.uid
+    //   });
 
-      //   const userOrdersRef = doc(db, 'user', user.uid, 'orders', orderDocRef.id);
+    //   const userOrdersRef = doc(db, 'user', user.uid, 'orders', orderDocRef.id);
 
-      //   await setDoc(userOrdersRef, {
-      //     items: items,
-      //     cartTotal: cartTotal,
-      //     totalItems: totalItems,
-      //     date: currentDate,
-      //   });
+    //   await setDoc(userOrdersRef, {
+    //     items: items,
+    //     cartTotal: cartTotal,
+    //     totalItems: totalItems,
+    //     date: currentDate,
+    //   });
 
-      //   console.log('Order saved successfully!');
-      // });
-      // } catch (error) {
-      //   console.error('Error saving order:', error);
-      // }
+    //   console.log('Order saved successfully!');
+    // });
+    // } catch (error) {
+    //   console.error('Error saving order:', error);
+    // }
 
-      Swal.fire(
-        "submitted",
-        "your order has been submitted... You will receive a confirmation call for your order within 1 to 3 days",
-        "success"
-      );
-      navigate("/");
-      emptyCart();
-   
+    // Swal.fire(
+    //   "submitted",
+    //   "your order has been submitted... You will receive a confirmation call for your order within 1 to 3 days",
+    //   "success"
+    // );
+    // navigate("/");
+    // emptyCart();
   };
 
   return (
