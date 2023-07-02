@@ -39,9 +39,27 @@ const Login = () => {
       setPassword("");
       // setTimeout(() => {
       //   setSuccessMsg("");
-        navigate("/");
+      navigate("/");
       // }, 3000);
     } catch (err) {
+      // if (err.message === `'Firebase: Error(auth/invalid-email).'`) {
+      //   toast.error("Please fill all required fields", {
+      //     position: "top-center",
+      //     theme: "colored",
+      //   });
+      // }
+      // if (err.message === `'Firebase: Error(auth/user-not-found).'`) {
+      //   toast.error("Email not found", {
+      //     position: "top-center",
+      //     theme: "colored",
+      //   });
+      // }
+      // if (err.message === "Firebase: Error(auth/wrong-password).") {
+      //   toast.error("Wrong Password", {
+      //     position: "top-center",
+      //     theme: "colored",
+      //   });
+      // }
       // console.error(err);
       // setErrorMsg(err.message);
       // setTimeout(() => {
@@ -74,7 +92,7 @@ const Login = () => {
 
       <Container maxWidth="xs">
         <Box
-         component="form"
+          component="form"
           sx={{
             borderRadius: "10px",
             backgroundColor: "white",

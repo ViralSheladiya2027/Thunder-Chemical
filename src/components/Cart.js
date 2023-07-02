@@ -50,6 +50,7 @@ const Cart = ({ user }) => {
         cartTotal: cartTotal,
         items: items,
         totalItems: totalItems,
+        status : "Active",
         userid: user.uid,
         date: currentDate,
       }).then(() => {

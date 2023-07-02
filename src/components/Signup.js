@@ -55,6 +55,20 @@ const Signup = () => {
         navigate("/login");
       // }, 3000);
     } catch (err) {
+// if(`err.message === 'Firebase: Error(auth/invalid-email).'`){
+//   toast.error("Please fill all required fields", {
+//     position: "top-center",
+//     theme: "colored",
+//   });
+// }
+// if(`err.message==='Firebase: Error(auth/email-already-in-use).'`){
+//   toast.error("User already exists", {
+//     position: "top-center",
+//     theme: "colored",
+//   });
+// }
+
+
       // console.error(err);
       // setErrorMsg(err.message);
       toast.error(err.message, {
